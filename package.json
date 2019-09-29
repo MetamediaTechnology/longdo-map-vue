@@ -1,0 +1,74 @@
+{
+  "name": "longdo-map-vue",
+  "description": "Longdo Map component for Vue.js",
+  "version": "0.1.0",
+  "author": "Khomchan Phattanarat <khomchan@longdo.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/MetamediaTechnology/longdo-map-vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MetamediaTechnology/longdo-map-vue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MetamediaTechnology/longdo-map-vue/issues"
+  },
+  "main": "./dist/longdo-map-vue.common.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
+  "private": false,
+  "scripts": {
+    "build": "vue-cli-service build --target lib --name longdo-map-vue ./src/index.js"
+  },
+  "dependencies": {
+    "core-js": "^2.6.5",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "keywords": [
+    "vue",
+    "longdo-map-vue",
+    "longdomapvue",
+    "vue-longdomap",
+    "vuelongdomap",
+    "longdo",
+    "longdomap",
+    "longdo-map",
+    "map"
+  ]
+}
