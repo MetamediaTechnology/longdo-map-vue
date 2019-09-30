@@ -1,13 +1,18 @@
+![Longdo Map Logo](https://map.longdo.com/themes/longdo/logo.png)
+
 # longdo-map-vue
-[Longdo Map](https://map.longdo.com/) component for Vue.js
+> [Longdo Map](https://map.longdo.com/) component for Vue.js
+![npm](https://img.shields.io/npm/v/longdo-map-vue)
+![npm](https://img.shields.io/npm/dt/longdo-map-vue)
+![npm](https://img.shields.io/npm/l/longdo-map-vue)
 
 ## Getting started
 
-### Requirements
+### Requirement
 - [Vue](https://github.com/vuejs/vue)
 
 ### Installation
-You can easily install this by using `npm`
+Easily install by using `npm`
 ```cli
 npm i longdo-map-vue
 ```
@@ -15,7 +20,7 @@ npm i longdo-map-vue
 ### Usage
 [Get your Longdo Map API key](https://map.longdo.com/docs/javascript/getapi).
 
-#### Import globally
+Register component globally
 ```js
 import Vue from 'vue'
 import LongdoMap from 'longdo-map-vue'
@@ -26,14 +31,12 @@ Vue.use(LongdoMap, {
     }
 })
 ```
-and use in your Vue component template like this
 ```html
 <template>
     <longdo-map/>
 </template>
 ```
-
-#### Import locally in your component
+or register locally in your component
 ```js
 import {LongdoMap} from 'longdo-map-vue'
 
@@ -51,13 +54,15 @@ export default {
 ```
 
 ### Example
+
 ```html
 <template>
     <longdo-map @onload="addMarker"/>
 </template>
 ```
+`@onload` will call once Longdo Map object is loaded.
 ```js
-# In your methods section
+// In your methods section
 methods: {
     addMarker (map) {
         // set Longdo Map object for later use
@@ -70,6 +75,10 @@ methods: {
 }
 ```
 
+## Incoming features
+* Marker component
+* Geometry component (such as polyline, polygon and more.)
+
 ## Useful links
-[Longdo Map](https://map.longdo.com/products)
-[Longdo Map API Documentation](https://map.longdo.com/docs/)
+* [Longdo Map](https://map.longdo.com/products)
+* [Longdo Map API Documentation](https://map.longdo.com/docs/)

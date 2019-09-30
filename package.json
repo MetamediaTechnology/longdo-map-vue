@@ -1,10 +1,10 @@
 {
   "name": "longdo-map-vue",
   "description": "Longdo Map component for Vue.js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Khomchan Phattanarat <khomchan@longdo.com>",
   "license": "MIT",
-  "homepage": "https://github.com/MetamediaTechnology/longdo-map-vue",
+  "homepage": "https://github.com/MetamediaTechnology/longdo-map-vue#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MetamediaTechnology/longdo-map-vue.git"
