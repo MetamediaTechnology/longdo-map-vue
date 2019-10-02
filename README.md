@@ -13,15 +13,22 @@
 - [Vue](https://github.com/vuejs/vue)
 
 ### Installation
-Easily install by using `npm`
+You can easily install by using `npm`
 ```cli
 npm i longdo-map-vue
 ```
 
 ### Usage
-[Get your Longdo Map API key](https://map.longdo.com/docs/javascript/getapi).
+First, you need to get your [Longdo Map API key](https://map.longdo.com/docs/javascript/getapi).
 
-Register component globally
+After you have component installed and Longdo Map API key, you need to register it to your Vue project.
+
+There are two ways of registering component:
+
+#### Register component globally
+This is a recommended way of registering component
+
+In your `main.js` or similar file:
 ```js
 import Vue from 'vue'
 import LongdoMap from 'longdo-map-vue'
@@ -32,29 +39,33 @@ Vue.use(LongdoMap, {
     }
 })
 ```
+Then you can use `<longdo-map/>` in your component template.
 ```html
 <template>
     <longdo-map/>
 </template>
 ```
-or register locally in your component
-```js
-import {LongdoMap} from 'longdo-map-vue'
 
-export default {
-  name: 'foo',
-  components: {
-    'longdo-map': LongdoMap
-  }
-}
-```
+#### Register locally in your component
+In your component file, for example Foo.vue:
 ```html
 <template>
     <longdo-map :apiKey="YOUR_LONGDO_MAP_API_KEY"/>
 </template>
 ```
+```js
+import { LongdoMap } from 'longdo-map-vue'
+
+export default {
+  name: 'Foo',
+  components: {
+    'longdo-map': LongdoMap
+  }
+}
+```
 
 ### Example
+This example below shows you how to add a marker to Longdo Map:
 
 ```html
 <template>
