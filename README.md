@@ -28,7 +28,7 @@ import LongdoMap from 'longdo-map-vue'
 
 Vue.use(LongdoMap, {
     load: {
-        apiKey: [YOUR_LONGDO_MAP_API_KEY]
+        apiKey: 'YOUR_LONGDO_MAP_API_KEY'
     }
 })
 ```
@@ -50,7 +50,7 @@ export default {
 ```
 ```html
 <template>
-    <longdo-map :apiKey="[YOUR_LONGDO_MAP_API_KEY]"/>
+    <longdo-map :apiKey="YOUR_LONGDO_MAP_API_KEY"/>
 </template>
 ```
 
@@ -80,6 +80,6 @@ methods: {
 * Marker component
 * Geometry component (such as polyline, polygon and more.)
 
-## Useful links
+## References
 * [Longdo Map](https://map.longdo.com/products)
 * [Longdo Map API Documentation](https://map.longdo.com/docs/)
