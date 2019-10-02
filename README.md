@@ -69,7 +69,7 @@ Here is an example of how to add a marker to Longdo Map:
 
 ```html
 <template>
-    <longdo-map @onload="addMarker"/>
+    <longdo-map :mapOptions="{ zoom: 10, lastView: false }" @onload="addMarker"/>
 </template>
 ```
 `@onload` will call once Longdo Map object is loaded.
