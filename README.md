@@ -20,7 +20,6 @@ npm i longdo-map-vue
 
 ### Usage
 First, you need to get your [Longdo Map API key](https://map.longdo.com/docs/javascript/getapi).
-
 After you have component installed and Longdo Map API key, you need to register it to your Vue project.
 
 There are two ways of registering component:
@@ -47,7 +46,7 @@ Then you can use `<longdo-map/>` in your component template.
 ```
 
 #### Register locally in your component
-In your component file, for example Foo.vue:
+In your component file, for example `Foo.vue`:
 ```html
 <template>
     <longdo-map :apiKey="YOUR_LONGDO_MAP_API_KEY"/>
