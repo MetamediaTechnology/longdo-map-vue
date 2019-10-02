@@ -19,8 +19,9 @@ npm i longdo-map-vue
 ```
 
 ### Usage
-First, you need to get your [Longdo Map API key](https://map.longdo.com/docs/javascript/getapi).
-After you have component installed and Longdo Map API key, you need to register it to your Vue project.
+First, you need to get a [Longdo Map API key](https://map.longdo.com/docs/javascript/getapi). 
+
+Then, after you have Longdo Map API key and component installed, you need to register it to your Vue project.
 
 There are two ways of registering component:
 
@@ -64,7 +65,7 @@ export default {
 ```
 
 ### Example
-This example below shows you how to add a marker to Longdo Map:
+Here is an example of how to add a marker to Longdo Map:
 
 ```html
 <template>
