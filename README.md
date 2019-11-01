@@ -50,11 +50,12 @@ Then you can use `<longdo-map/>` in your component template.
 In your component file, for example `Foo.vue`:
 ```html
 <template>
-    <longdo-map :apiKey="YOUR_LONGDO_MAP_API_KEY"/>
+    <longdo-map/>
 </template>
 ```
 ```js
 import { LongdoMap } from 'longdo-map-vue'
+LongdoMap.init('YOUR_LONGDO_MAP_API_KEY')
 
 export default {
   name: 'Foo',
