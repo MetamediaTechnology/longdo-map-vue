@@ -50,11 +50,12 @@ Then you can use `<longdo-map/>` in your component template.
 In your component file, for example `Foo.vue`:
 ```html
 <template>
-    <longdo-map :apiKey="YOUR_LONGDO_MAP_API_KEY"/>
+    <longdo-map/>
 </template>
 ```
 ```js
 import { LongdoMap } from 'longdo-map-vue'
+LongdoMap.init('YOUR_LONGDO_MAP_API_KEY')
 
 export default {
   name: 'Foo',
@@ -69,10 +70,10 @@ Here is an example of how to add a marker to Longdo Map:
 
 ```html
 <template>
-    <longdo-map :mapOptions="{ zoom: 10, lastView: false }" @onload="addMarker"/>
+    <longdo-map :mapOptions="{ zoom: 10, lastView: false }" @load="addMarker"/>
 </template>
 ```
-`@onload` will call once Longdo Map object is loaded.
+`@load` will call once Longdo Map object is loaded.
 ```js
 // In your methods section
 methods: {
