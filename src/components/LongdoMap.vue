@@ -17,14 +17,6 @@ export default {
       mapPromise: null
     }
   },
-  props: {
-    mapOptions: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
   created () {
     let self = this
     this.mapPromise = manager.promise
@@ -35,7 +27,6 @@ export default {
   methods: {
     initLongdoMap () {
       let options = this.getMapOptions()
-      options = { ...options, ...this.mapOptions }
       options.placeholder = this.$refs.map
       this.map = new window.longdo.Map(options)
       this.$emit('load', this.map)
