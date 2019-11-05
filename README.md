@@ -50,11 +50,12 @@ Then you can use `<longdo-map/>` in your component template.
 In your component file, for example `Foo.vue`:
 ```html
 <template>
-    <longdo-map :apiKey="YOUR_LONGDO_MAP_API_KEY"/>
+    <longdo-map/>
 </template>
 ```
 ```js
 import { LongdoMap } from 'longdo-map-vue'
+LongdoMap.init('YOUR_LONGDO_MAP_API_KEY')
 
 export default {
   name: 'Foo',
@@ -63,33 +64,68 @@ export default {
   }
 }
 ```
+You can import more components if you want, for example:
 
-### Example
-Here is an example of how to add a marker to Longdo Map:
+`import { LongdoMap, LongdoMapMarker } from 'longdo-map-vue'`
+
+### Examples
+Add a polygon to Longdo Map:
 
 ```html
 <template>
-    <longdo-map :mapOptions="{ zoom: 10, lastView: false }" @onload="addMarker"/>
+    <longdo-map>
+        <longdo-map-polygon
+            :location="locationList"
+            :lineWidth="2"
+            :lineColor="'rgba(0, 0, 0, 1)'"
+            :fillColor="'rgba(255, 0, 0, 0.4)'"
+        />
+    </longdo-map>
 </template>
 ```
-`@onload` will call once Longdo Map object is loaded.
 ```js
-// In your methods section
-methods: {
-    addMarker (map) {
-        // set Longdo Map object for later use
-        this.map = map
-
-        // add a marker to Longdo Map
-        let marker = new longdo.Marker({ lon: 100.56, lat: 13.74 })
-        this.map.Overlays.add(marker)
+export default {
+    data() {
+        return {
+            locationList: [
+                { lon: 99, lat: 14 },
+                { lon: 100, lat: 13 },
+                { lon: 102, lat: 13 },
+                { lon: 103, lat: 14 }
+            ]
+        }
     }
 }
 ```
 
-## Incoming features
-* Marker component
-* Geometry component (such as polyline, polygon and more.)
+Add multiple markers to Longdo Map:
+
+```html
+<template>
+    <longdo-map :zoom="10" :lastView="false">
+        <longdo-map-marker
+            v-for="(item, i) in markers"
+            :key="i"
+            :location="item.location"
+            :title="item.title"
+            :detail="item.detail"
+        />
+    </longdo-map>
+</template>
+```
+
+### Components
+* longdo-map [props](http://api.longdo.com/map/doc/content/#MapOptions)
+* longdo-map-marker [props](http://api.longdo.com/map/doc/content/#MarkerOptions)
+* longdo-map-dot [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
+* longdo-map-circle [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
+* longdo-map-rectangle [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
+* longdo-map-polyline [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
+* longdo-map-polycurve [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
+* longdo-map-polygon [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
+
+## Documentation
+* Coming soon...
 
 ## References
 * [Longdo Map](https://map.longdo.com/products)
