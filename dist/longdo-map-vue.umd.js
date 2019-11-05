@@ -2944,12 +2944,12 @@ var manager = {
   }
 };
 /* harmony default export */ var src_manager = (manager);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5b493fc8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LongdoMap.vue?vue&type=template&id=3a11bc5b&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5b493fc8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LongdoMap.vue?vue&type=template&id=4ec10884&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"map",staticStyle:{"width":"100%","height":"100%"}},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LongdoMap.vue?vue&type=template&id=3a11bc5b&scoped=true&
+// CONCATENATED MODULE: ./src/components/LongdoMap.vue?vue&type=template&id=4ec10884&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.symbol.async-iterator.js
 var es7_symbol_async_iterator = __webpack_require__("ac4d");
@@ -3064,16 +3064,6 @@ var props = {
   }
 });
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LongdoMap.vue?vue&type=script&lang=js&
-
-
-
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 //
 //
 //
@@ -3091,14 +3081,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       mapPromise: null
     };
   },
-  props: {
-    mapOptions: {
-      type: Object,
-      default: function _default() {
-        return {};
-      }
-    }
-  },
   created: function created() {
     var self = this;
     this.mapPromise = src_manager.promise;
@@ -3109,7 +3091,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   methods: {
     initLongdoMap: function initLongdoMap() {
       var options = this.getMapOptions();
-      options = _objectSpread({}, options, {}, this.mapOptions);
       options.placeholder = this.$refs.map;
       this.map = new window.longdo.Map(options);
       this.$emit('load', this.map);
@@ -3232,7 +3213,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "3a11bc5b",
+  "4ec10884",
   null
   
 )
@@ -3341,6 +3322,292 @@ var markerOptions_props = {
     }
   }
 });
+// CONCATENATED MODULE: ./src/mixins/geometryOptions.js
+
+var geometryOptions_props = {
+  location: {
+    type: Object | Array,
+    default: null
+  },
+  radius: {
+    type: Number,
+    default: null
+  },
+  size: {
+    type: Number | Object,
+    default: null
+  },
+  title: {
+    type: String,
+    default: null
+  },
+  detail: {
+    type: String,
+    default: null
+  },
+  label: {
+    type: String,
+    default: null
+  },
+  labelOptions: {
+    type: Object,
+    default: null
+  },
+  popup: {
+    type: Object,
+    default: null
+  },
+  visibleRange: {
+    type: Object,
+    default: null
+  },
+  lineWidth: {
+    type: Number,
+    default: null
+  },
+  lineColor: {
+    type: String,
+    default: null
+  },
+  fillColor: {
+    type: String,
+    default: null
+  },
+  lineStyle: {
+    type: String,
+    default: null
+  },
+  pivot: {
+    type: Object,
+    default: null
+  },
+  clickable: {
+    type: Boolean,
+    default: null
+  },
+  editable: {
+    type: Boolean,
+    default: null
+  },
+  pointer: {
+    type: Boolean,
+    default: null
+  },
+  draggable: {
+    type: Boolean,
+    default: null
+  },
+  rotatable: {
+    type: Boolean,
+    default: null
+  },
+  weight: {
+    type: String,
+    default: null
+  },
+  texture: {
+    type: String,
+    default: null
+  },
+  textureAlpha: {
+    type: Number,
+    default: null
+  },
+  linePattern: {
+    type: String,
+    default: null
+  }
+};
+/* harmony default export */ var geometryOptions = ({
+  props: geometryOptions_props,
+  methods: {
+    getGeometryOptions: function getGeometryOptions() {
+      var options = {};
+
+      for (var key in geometryOptions_props) {
+        if (this[key] !== null) {
+          if (key === 'weight') {
+            options.weight = window.longdo.OverlayWeight[this.weight];
+          } else if (key === 'lineStyle') {
+            options.lineStyle = window.longdo.LineStyle[this.lineStyle];
+          } else {
+            options[key] = this[key];
+          }
+        }
+      }
+
+      return options;
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/Dot.js
+
+
+/* harmony default export */ var Dot = ({
+  name: 'LongdoDot',
+  mixins: [childDefault, geometryOptions],
+  data: function data() {
+    return {
+      dot: null
+    };
+  },
+  mounted: function mounted() {
+    var self = this;
+    this.mapReady.then(function () {
+      self.addDot(self.location, self.getGeometryOptions());
+    });
+  },
+  destroyed: function destroyed() {
+    this.$parent.map.Overlays.remove(this.dot);
+  },
+  methods: {
+    addDot: function addDot(location, options) {
+      this.dot = new window.longdo.Dot(location, options);
+      this.$parent.map.Overlays.add(this.dot);
+      this.$emit('add', this.dot);
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/Circle.js
+
+
+/* harmony default export */ var Circle = ({
+  name: 'LongdoCircle',
+  mixins: [childDefault, geometryOptions],
+  data: function data() {
+    return {
+      circle: null
+    };
+  },
+  mounted: function mounted() {
+    var self = this;
+    this.mapReady.then(function () {
+      self.addCircle(self.location, self.radius, self.getGeometryOptions());
+    });
+  },
+  destroyed: function destroyed() {
+    this.$parent.map.Overlays.remove(this.circle);
+  },
+  methods: {
+    addCircle: function addCircle(location, radius, options) {
+      this.circle = new window.longdo.Circle(location, radius, options);
+      this.$parent.map.Overlays.add(this.circle);
+      this.$emit('add', this.circle);
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/Rectangle.js
+
+
+/* harmony default export */ var Rectangle = ({
+  name: 'LongdoRectangle',
+  mixins: [childDefault, geometryOptions],
+  data: function data() {
+    return {
+      rectangle: null
+    };
+  },
+  mounted: function mounted() {
+    var self = this;
+    this.mapReady.then(function () {
+      self.addRectangle(self.location, self.size, self.getGeometryOptions());
+    });
+  },
+  destroyed: function destroyed() {
+    this.$parent.map.Overlays.remove(this.rectangle);
+  },
+  methods: {
+    addRectangle: function addRectangle(location, size, options) {
+      this.rectangle = new window.longdo.Rectangle(location, size, options);
+      this.$parent.map.Overlays.add(this.rectangle);
+      this.$emit('add', this.rectangle);
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/Polygon.js
+
+
+/* harmony default export */ var Polygon = ({
+  name: 'LongdoPolygon',
+  mixins: [childDefault, geometryOptions],
+  data: function data() {
+    return {
+      polygon: null
+    };
+  },
+  mounted: function mounted() {
+    var self = this;
+    this.mapReady.then(function () {
+      self.addPolygon(self.location, self.getGeometryOptions());
+    });
+  },
+  destroyed: function destroyed() {
+    this.$parent.map.Overlays.remove(this.polygon);
+  },
+  methods: {
+    addPolygon: function addPolygon(location, options) {
+      this.polygon = new window.longdo.Polygon(location, options);
+      this.$parent.map.Overlays.add(this.polygon);
+      this.$emit('add', this.polygon);
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/Polyline.js
+
+
+/* harmony default export */ var Polyline = ({
+  name: 'LongdoPolyline',
+  mixins: [childDefault, geometryOptions],
+  data: function data() {
+    return {
+      polyline: null
+    };
+  },
+  mounted: function mounted() {
+    var self = this;
+    this.mapReady.then(function () {
+      self.addPolyline(self.location, self.getGeometryOptions());
+    });
+  },
+  destroyed: function destroyed() {
+    this.$parent.map.Overlays.remove(this.polyline);
+  },
+  methods: {
+    addPolyline: function addPolyline(location, options) {
+      this.polyline = new window.longdo.Polyline(location, options);
+      this.$parent.map.Overlays.add(this.polyline);
+      this.$emit('add', this.polyline);
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/Polycurve.js
+
+
+/* harmony default export */ var Polycurve = ({
+  name: 'LongdoPolycurve',
+  mixins: [childDefault, geometryOptions],
+  data: function data() {
+    return {
+      polycurve: null
+    };
+  },
+  mounted: function mounted() {
+    var self = this;
+    this.mapReady.then(function () {
+      self.addPolycurve(self.location, self.getGeometryOptions());
+    });
+  },
+  destroyed: function destroyed() {
+    this.$parent.map.Overlays.remove(this.polycurve);
+  },
+  methods: {
+    addPolycurve: function addPolycurve(location, options) {
+      this.polycurve = new window.longdo.Polycurve(location, options);
+      this.$parent.map.Overlays.add(this.polycurve);
+      this.$emit('add', this.polycurve);
+    }
+  }
+});
 // CONCATENATED MODULE: ./src/index.js
 
 
@@ -3348,9 +3615,15 @@ var markerOptions_props = {
 
 
 
-function src_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function src_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { src_ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { src_ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+
+
+
+
 
 
 
@@ -3358,7 +3631,7 @@ function src_objectSpread(target) { for (var i = 1; i < arguments.length; i++) {
 
 var components = {
   install: function install(Vue, userOptions) {
-    var options = src_objectSpread({
+    var options = _objectSpread({
       installComponents: true,
       tagPrefix: ''
     }, userOptions);
@@ -3371,6 +3644,12 @@ var components = {
       var prefix = options.tagPrefix !== '' ? "".concat(options.tagPrefix, "-") : options.tagPrefix;
       Vue.component("".concat(prefix, "longdo-map"), LongdoMap);
       Vue.component("".concat(prefix, "longdo-map-marker"), Marker);
+      Vue.component("".concat(prefix, "longdo-map-dot"), Dot);
+      Vue.component("".concat(prefix, "longdo-map-circle"), Circle);
+      Vue.component("".concat(prefix, "longdo-map-rectangle"), Rectangle);
+      Vue.component("".concat(prefix, "longdo-map-polygon"), Polygon);
+      Vue.component("".concat(prefix, "longdo-map-polyline"), Polyline);
+      Vue.component("".concat(prefix, "longdo-map-polycurve"), Polycurve);
     }
   }
 };
@@ -3378,6 +3657,12 @@ var components = {
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 /* concated harmony reexport LongdoMap */__webpack_require__.d(__webpack_exports__, "LongdoMap", function() { return LongdoMap; });
 /* concated harmony reexport LongdoMapMarker */__webpack_require__.d(__webpack_exports__, "LongdoMapMarker", function() { return Marker; });
+/* concated harmony reexport LongdoMapDot */__webpack_require__.d(__webpack_exports__, "LongdoMapDot", function() { return Dot; });
+/* concated harmony reexport LongdoMapCircle */__webpack_require__.d(__webpack_exports__, "LongdoMapCircle", function() { return Circle; });
+/* concated harmony reexport LongdoMapRectangle */__webpack_require__.d(__webpack_exports__, "LongdoMapRectangle", function() { return Rectangle; });
+/* concated harmony reexport LongdoMapPolygon */__webpack_require__.d(__webpack_exports__, "LongdoMapPolygon", function() { return Polygon; });
+/* concated harmony reexport LongdoMapPolyline */__webpack_require__.d(__webpack_exports__, "LongdoMapPolyline", function() { return Polyline; });
+/* concated harmony reexport LongdoMapPolycurve */__webpack_require__.d(__webpack_exports__, "LongdoMapPolycurve", function() { return Polycurve; });
 
 
 /* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src);
