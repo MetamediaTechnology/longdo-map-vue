@@ -60,7 +60,7 @@ LongdoMap.init('YOUR_LONGDO_MAP_API_KEY')
 export default {
   name: 'Foo',
   components: {
-    'longdo-map': LongdoMap
+      LongdoMap
   }
 }
 ```
