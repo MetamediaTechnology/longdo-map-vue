@@ -2885,14 +2885,18 @@ var manager = {
   _apiKey: '',
   promise: {},
   load: function load(_ref) {
-    var apiKey = _ref.apiKey;
+    var apiKey = _ref.apiKey,
+        _ref$checkApiKey = _ref.checkApiKey,
+        checkApiKey = _ref$checkApiKey === void 0 ? true : _ref$checkApiKey;
 
     if (typeof window === 'undefined') {
       return;
     }
 
     if (!window.longdo) {
-      this._validateApiKey(apiKey);
+      if (checkApiKey) {
+        this._validateApiKey(apiKey);
+      }
 
       var url = "https://api.longdo.com/map/?key=".concat(apiKey);
       this._apiKey = apiKey;
@@ -2935,12 +2939,12 @@ var manager = {
   }
 };
 /* harmony default export */ var src_manager = (manager);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"69b03b79-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LongdoMap.vue?vue&type=template&id=4ec10884&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"69b03b79-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LongdoMap.vue?vue&type=template&id=20d566a4&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"map",staticStyle:{"width":"100%","height":"100%"}},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LongdoMap.vue?vue&type=template&id=4ec10884&scoped=true&
+// CONCATENATED MODULE: ./src/components/LongdoMap.vue?vue&type=template&id=20d566a4&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.symbol.async-iterator.js
 var es7_symbol_async_iterator = __webpack_require__("ac4d");
@@ -3088,8 +3092,10 @@ var props = {
     }
   },
   init: function init(apiKey) {
+    var checkApiKey = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
     src_manager.load({
-      apiKey: apiKey
+      apiKey: apiKey,
+      checkApiKey: checkApiKey
     });
   }
 });
@@ -3204,7 +3210,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "4ec10884",
+  "20d566a4",
   null
   
 )
