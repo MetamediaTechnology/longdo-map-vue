@@ -115,17 +115,17 @@ Add multiple markers to Longdo Map:
 ```
 
 ### Components
-* longdo-map [props](http://api.longdo.com/map/doc/content/#MapOptions)
-* longdo-map-marker [props](http://api.longdo.com/map/doc/content/#MarkerOptions)
-* longdo-map-dot [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
-* longdo-map-circle [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
-* longdo-map-rectangle [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
-* longdo-map-polyline [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
-* longdo-map-polycurve [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
-* longdo-map-polygon [props](http://api.longdo.com/map/doc/content/#GeometryOptions)
+* longdo-map [props](http://api.longdo.com/map/doc/ref.php#MapOptions)
+* longdo-map-marker [props](http://api.longdo.com/map/doc/ref.php#MarkerOptions)
+* longdo-map-dot [props](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+* longdo-map-circle [props](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+* longdo-map-rectangle [props](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+* longdo-map-polyline [props](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+* longdo-map-polycurve [props](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+* longdo-map-polygon [props](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
 
 ## Documentation
-* Coming soon...
+* [สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
 
 ## References
 * [Longdo Map](https://map.longdo.com/products)
