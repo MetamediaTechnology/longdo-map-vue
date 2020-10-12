@@ -55,7 +55,7 @@ In your component file, for example `Foo.vue`:
 ```
 ```js
 import { LongdoMap } from 'longdo-map-vue'
-LongdoMap.init('YOUR_LONGDO_MAP_API_KEY')
+LongdoMap.init({ apiKey: 'YOUR_LONGDO_MAP_API_KEY' })
 
 export default {
   name: 'Foo',

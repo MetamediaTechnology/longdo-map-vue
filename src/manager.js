@@ -1,7 +1,8 @@
 const manager = {
   _apiKey: '',
+  _src: 'https://api.longdo.com/map/',
   promise: {},
-	load({ apiKey, checkApiKey = true }) {
+	load({ apiKey, src = undefined, checkApiKey = true }) {
 		if (typeof window === 'undefined') {
 			return
 		}
@@ -9,8 +10,19 @@ const manager = {
       if (checkApiKey) {
         this._validateApiKey(apiKey)
       }
-			let url = `https://api.longdo.com/map/?key=${apiKey}`
-			this._apiKey = apiKey
+
+      let url = this._src
+
+      if (src) {
+        url = src
+        this._src = src
+      }
+
+      if (apiKey) {
+        url += `?key=${apiKey}`
+      }
+      this._apiKey = apiKey
+      
 			this._importLongdoMap(url)
 		} else {
 			console.warn('Longdo Map API is already loaded')

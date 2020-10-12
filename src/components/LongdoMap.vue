@@ -32,9 +32,10 @@ export default {
       this.$emit('load', this.map)
     }
   },
-  init (apiKey, checkApiKey = true) {
+  init ({ apiKey, src = undefined, checkApiKey = true }) {
     manager.load({
       apiKey: apiKey,
+      src: src,
       checkApiKey: checkApiKey
     })
   }

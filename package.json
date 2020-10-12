@@ -1,7 +1,7 @@
 {
   "name": "longdo-map-vue",
   "description": "Longdo Map component for Vue.js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Metamedia Technology <info@mm.co.th>",
   "license": "MIT",
   "homepage": "https://github.com/MetamediaTechnology/longdo-map-vue#readme",
@@ -25,7 +25,7 @@
     "build": "vue-cli-service build --target lib --name longdo-map-vue ./src/index.js"
   },
   "dependencies": {
-    "core-js": "^2.6.5",
+    "core-js": "^2.6.11",
     "vue": "^2.6.10"
   },
   "devDependencies": {
