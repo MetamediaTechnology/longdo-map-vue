@@ -602,7 +602,7 @@ var markerOptions_props = {
     default: null
   },
   weight: {
-    type: Number,
+    type: String,
     default: null
   },
   rotate: {
@@ -619,7 +619,11 @@ var markerOptions_props = {
       for (var key in markerOptions_props) {
         if (this[key] !== null) {
           if (key === 'weight') {
-            options.weight = window.longdo.OverlayWeight[this.weight];
+            var weightVal = window.longdo.OverlayWeight[this.weight];
+
+            if (weightVal) {
+              options.weight = weightVal;
+            }
           } else {
             options[key] = this[key];
           }
@@ -737,7 +741,7 @@ var geometryOptions_props = {
     default: null
   },
   weight: {
-    type: Number,
+    type: String,
     default: null
   },
   texture: {
@@ -762,7 +766,11 @@ var geometryOptions_props = {
       for (var key in geometryOptions_props) {
         if (this[key] !== null) {
           if (key === 'weight') {
-            options.weight = window.longdo.OverlayWeight[this.weight];
+            var weightVal = window.longdo.OverlayWeight[this.weight];
+
+            if (weightVal) {
+              options.weight = weightVal;
+            }
           } else if (key === 'lineStyle') {
             options.lineStyle = window.longdo.LineStyle[this.lineStyle];
           } else {
