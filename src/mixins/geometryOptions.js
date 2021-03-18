@@ -76,7 +76,7 @@ const props = {
     default: null
   },
   weight: {
-    type: Number,
+    type: String,
     default: null
   },
   texture: {
@@ -101,7 +101,10 @@ export default {
       for (let key in props) {
         if (this[key] !== null) {
           if (key === 'weight') {
-            options.weight = window.longdo.OverlayWeight[this.weight]
+            let weightVal = window.longdo.OverlayWeight[this.weight]
+            if (weightVal) {
+              options.weight = weightVal
+            }
           } else if (key === 'lineStyle') {
             options.lineStyle = window.longdo.LineStyle[this.lineStyle]
           } else {

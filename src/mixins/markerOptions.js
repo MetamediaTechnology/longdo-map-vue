@@ -32,7 +32,7 @@ const props = {
     default: null
   },
   weight: {
-    type: Number,
+    type: String,
     default: null
   },
   rotate: {
@@ -49,7 +49,10 @@ export default {
       for (let key in props) {
         if (this[key] !== null) {
           if (key === 'weight') {
-            options.weight = window.longdo.OverlayWeight[this.weight]
+            let weightVal = window.longdo.OverlayWeight[this.weight]
+            if (weightVal) {
+              options.weight = weightVal
+            }
           } else {
             options[key] = this[key]
           }
