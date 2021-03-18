@@ -27,7 +27,7 @@ const components = {
       ...userOptions
     }
     if (options.load) {
-		  manager.load(options.load)
+      manager.load(options.load)
 		}
 		if (options.installComponents) {
 			let prefix = options.tagPrefix !== '' ? `${options.tagPrefix}-` : options.tagPrefix

@@ -32,7 +32,7 @@ const props = {
     default: null
   },
   weight: {
-    type: String,
+    type: Number,
     default: null
   },
   rotate: {
