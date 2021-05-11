@@ -1,5 +1,6 @@
 <template>
-<div ref="map" style="width: 100%; height: 100%;">
+<div class="ldmap-vue-container" >
+  <div class="ldmap-vue-placeholder" ref="map" />
   <slot></slot>
 </div>
 </template>
@@ -44,4 +45,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.ldmap-vue-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-family: Tahoma,sans-serif;
+}
+.ldmap-vue-placeholder {
+  width: inherit;
+  height: inherit;
+}
 </style>

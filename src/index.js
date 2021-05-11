@@ -7,6 +7,8 @@ import LongdoMapRectangle from './components/Rectangle'
 import LongdoMapPolygon from './components/Polygon'
 import LongdoMapPolyline from './components/Polyline'
 import LongdoMapPolycurve from './components/Polycurve'
+import LongdoMapLockScreen from './components/LockScreen'
+import LongdoMapLockMap from './components/LockMap'
 
 export {
   LongdoMap,
@@ -16,7 +18,9 @@ export {
   LongdoMapRectangle,
   LongdoMapPolygon,
   LongdoMapPolyline,
-  LongdoMapPolycurve
+  LongdoMapPolycurve,
+  LongdoMapLockScreen,
+  LongdoMapLockMap
 }
 
 const components = {
@@ -39,6 +43,8 @@ const components = {
 			Vue.component(`${prefix}longdo-map-polygon`, LongdoMapPolygon)
       Vue.component(`${prefix}longdo-map-polyline`, LongdoMapPolyline)
 			Vue.component(`${prefix}longdo-map-polycurve`, LongdoMapPolycurve)
+			Vue.component(`${prefix}longdo-map-lock-screen`, LongdoMapLockScreen)
+			Vue.component(`${prefix}longdo-map-lock-map`, LongdoMapLockMap)
 		}
 	},
 }

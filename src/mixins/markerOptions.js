@@ -38,6 +38,10 @@ const props = {
   rotate: {
     type: Number,
     default: null
+  },
+  transition: {
+    type: Boolean,
+    default: false
   }
 }
 
@@ -53,6 +57,8 @@ export default {
             if (weightVal) {
               options.weight = weightVal
             }
+          } else if (key === 'transition') {
+            continue
           } else {
             options[key] = this[key]
           }

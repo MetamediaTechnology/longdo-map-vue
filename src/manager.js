@@ -25,14 +25,14 @@ const manager = {
       
 			this._importLongdoMap(url)
 		} else {
-			console.warn('Longdo Map API is already loaded')
+			console.warn('Longdo Map Vue: Longdo Map API is already loaded')
 		}
 	},
 	initLongdoMap (init) {
 		if (window.longdo) {
       init()
 		} else {
-      throw new Error('Longdo Map API is not found')
+      throw new Error('Longdo Map Vue: Longdo Map API is not found')
 		}
 	},
 	_importLongdoMap (url) {
@@ -51,7 +51,7 @@ const manager = {
   },
   _validateApiKey (apiKey = '') {
     if (typeof apiKey !== 'string' || apiKey === '') {
-      throw new Error('Invalid Longdo Map API key')
+      throw new Error('Longdo Map Vue: Invalid Longdo Map API key')
     }
   }
 }
