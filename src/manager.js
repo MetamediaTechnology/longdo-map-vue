@@ -1,8 +1,9 @@
 const manager = {
   _apiKey: '',
   _src: 'https://api.longdo.com/map/',
+  _beforeInit: null,
   promise: {},
-	load({ apiKey, src = undefined, checkApiKey = true }) {
+	load({ apiKey, src = undefined, checkApiKey = true, beforeInit = null }) {
 		if (typeof window === 'undefined') {
 			return
 		}
@@ -22,6 +23,10 @@ const manager = {
         url += `?key=${apiKey}`
       }
       this._apiKey = apiKey
+
+      if (beforeInit) {
+        this._beforeInit = beforeInit
+      }
       
 			this._importLongdoMap(url)
 		} else {
@@ -30,6 +35,9 @@ const manager = {
 	},
 	initLongdoMap (init) {
 		if (window.longdo) {
+      if (this._beforeInit) {
+        this._beforeInit(window.longdo)
+      }
       init()
 		} else {
       throw new Error('Longdo Map API is not found')
