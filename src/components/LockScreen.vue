@@ -23,6 +23,7 @@
       @touchstart="touchStartEvent"
       @touchmove="touchMoveEvent"
       @touchend="touchEndEvent"
+      @click="clickEvent"
     >
       <div class="ldmap-vue-lock-screen-touch-message">
         {{ unlockMessageText }}
@@ -56,7 +57,7 @@ export default {
     },
     unlockMessageKeyboard: {
       type: String,
-      default: 'Press and hold Ctrl to move the map'
+      default: `Press and hold ${(navigator.appVersion.indexOf('Mac') != -1) ? '⌘' : 'Ctrl'} to move the map`
     },
     hideButton: {
       type: Boolean,
@@ -97,12 +98,12 @@ export default {
       this.unlockMessageText = this.unlockMessage === undefined ? 'Unlock' : this.unlockMessage
     },
     keyDownEvent (e) {
-      if (e.key === 'Control') {
+      if (e.key === 'Meta' || e.key === 'Control') {
         this.lockMap(false)
       }
     },
     keyUpEvent (e) {
-      if (e.key === 'Control') {
+      if (e.key === 'Meta' || e.key === 'Control') {
         this.lockMap(true)
       }
     },
@@ -121,6 +122,17 @@ export default {
       window.addEventListener('keydown', this.keyDownEvent)
       window.addEventListener('keyup', this.keyUpEvent)
     },
+    clickEvent () {
+      if (this.mode !== 'touch') return
+      this.unlockMessageText = this.unlockMessageKeyboard
+      if (!this.wheelTimeout && this.$refs.touchArea) {
+        this.$refs.touchArea.classList.add('ldmap-vue-lock-screen-touch-active')
+        this.wheelTimeout = setTimeout(() => {
+          this.$refs.touchArea.classList.remove('ldmap-vue-lock-screen-touch-active')
+          this.wheelTimeout = undefined
+        }, 1000)
+      }
+    },
     touchStartEvent (e) {
       this.unlockMessageText = this.unlockMessage === undefined ? 'Use two fingers to move the map' : this.unlockMessage
       if (e.touches.length > 0) {
@@ -138,22 +150,6 @@ export default {
       this.$refs.touchArea.classList.remove('ldmap-vue-lock-screen-touch-active')
     },
     setTouchMode () {
-      // this.$refs.touchArea.addEventListener('touchstart', (e) => {
-      //   this.unlockMessageText = this.unlockMessage === undefined ? 'Use two fingers to move the map' : this.unlockMessage
-      //   if (e.touches.length > 0) {
-      //     this.lockMap(false)
-      //     this.$refs.touchArea.classList.add('ldmap-vue-lock-screen-touch-active')
-      //   }
-      // })
-      // this.$refs.touchArea.addEventListener('touchmove', (e) => {
-      //   if (e.touches.length > 1) {
-      //     this.$refs.touchArea.classList.remove('ldmap-vue-lock-screen-touch-active')
-      //   }
-      // })
-      // this.$refs.touchArea.addEventListener('touchend', () => {
-      //   this.lockMap(true)
-      //   this.$refs.touchArea.classList.remove('ldmap-vue-lock-screen-touch-active')
-      // })
       this.setKeyboardMode()
       this.touchModeReady = true
     },
@@ -190,9 +186,6 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  /* display: flex;
-  justify-content: flex-start;
-  align-items: flex-end; */
 }
 .ldmap-vue-lock-screen-unlock {
   pointer-events: none;

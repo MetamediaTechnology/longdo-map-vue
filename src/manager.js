@@ -1,32 +1,30 @@
 const manager = {
-  _apiKey: '',
-  _src: 'https://api.longdo.com/map/',
-  promise: {},
-	load({ apiKey, src = undefined, checkApiKey = true }) {
+  apiKey: null,
+  src: 'https://api.longdo.com/map/',
+  promise: null,
+	load({ apiKey = null, src = null }) {
+
 		if (typeof window === 'undefined') {
 			return
 		}
-		if (!window.longdo) {
-      if (checkApiKey) {
-        this._validateApiKey(apiKey)
-      }
 
-      let url = this._src
+    if (window.longdo) {
+      console.warn('Longdo Map Vue: Longdo Map API is already loaded')
+      return
+    }
 
-      if (src) {
-        url = src
-        this._src = src
-      }
+    let url = this.src
+    if (src) {
+      url = src
+      this.src = src
+    }
 
-      if (apiKey) {
-        url += `?key=${apiKey}`
-      }
-      this._apiKey = apiKey
-      
-			this._importLongdoMap(url)
-		} else {
-			console.warn('Longdo Map Vue: Longdo Map API is already loaded')
-		}
+    if (apiKey) {
+      url += `?key=${apiKey}`
+      this.apiKey = apiKey
+    }
+    
+    this.importLongdoMap(url)
 	},
 	initLongdoMap (init) {
 		if (window.longdo) {
@@ -35,7 +33,7 @@ const manager = {
       throw new Error('Longdo Map Vue: Longdo Map API is not found')
 		}
 	},
-	_importLongdoMap (url) {
+	importLongdoMap (url) {
 		this.promise = new Promise((resolve, reject) => {
 			let script = document.createElement('script')
 			script.onload = () => {
@@ -48,11 +46,6 @@ const manager = {
 			script.src = url
 			document.body.appendChild(script)
 		})
-  },
-  _validateApiKey (apiKey = '') {
-    if (typeof apiKey !== 'string' || apiKey === '') {
-      throw new Error('Longdo Map Vue: Invalid Longdo Map API key')
-    }
   }
 }
 

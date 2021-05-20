@@ -9,6 +9,9 @@ import LongdoMapPolyline from './components/Polyline'
 import LongdoMapPolycurve from './components/Polycurve'
 import LongdoMapLockScreen from './components/LockScreen'
 import LongdoMapLockMap from './components/LockMap'
+import LongdoMapMenuBar from './components/MenuBar'
+import LongdoMapTagPanel from './components/TagPanel'
+import LongdoMapCustomControl from './components/CustomControl'
 
 export {
   LongdoMap,
@@ -20,7 +23,10 @@ export {
   LongdoMapPolyline,
   LongdoMapPolycurve,
   LongdoMapLockScreen,
-  LongdoMapLockMap
+  LongdoMapLockMap,
+  LongdoMapMenuBar,
+  LongdoMapTagPanel,
+  LongdoMapCustomControl
 }
 
 const components = {
@@ -45,6 +51,9 @@ const components = {
 			Vue.component(`${prefix}longdo-map-polycurve`, LongdoMapPolycurve)
 			Vue.component(`${prefix}longdo-map-lock-screen`, LongdoMapLockScreen)
 			Vue.component(`${prefix}longdo-map-lock-map`, LongdoMapLockMap)
+			Vue.component(`${prefix}longdo-map-menu-bar`, LongdoMapMenuBar)
+			Vue.component(`${prefix}longdo-map-tag-panel`, LongdoMapTagPanel)
+			Vue.component(`${prefix}longdo-map-custom-control`, LongdoMapCustomControl)
 		}
 	},
 }
