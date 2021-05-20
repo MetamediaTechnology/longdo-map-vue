@@ -2,7 +2,8 @@ const manager = {
   apiKey: null,
   src: 'https://api.longdo.com/map/',
   promise: null,
-	load({ apiKey = null, src = null }) {
+  beforeInit: null,
+	load({ apiKey = null, src = null, beforeInit = null }) {
 
 		if (typeof window === 'undefined') {
 			return
@@ -23,11 +24,18 @@ const manager = {
       url += `?key=${apiKey}`
       this.apiKey = apiKey
     }
+
+    if (beforeInit) {
+      this.beforeInit = beforeInit
+    }
     
     this.importLongdoMap(url)
 	},
 	initLongdoMap (init) {
 		if (window.longdo) {
+      if (this.beforeInit) {
+        this.beforeInit(window.longdo)
+      }
       init()
 		} else {
       throw new Error('Longdo Map Vue: Longdo Map API is not found')
