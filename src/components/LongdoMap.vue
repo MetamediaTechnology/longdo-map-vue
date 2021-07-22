@@ -1,13 +1,13 @@
 <template>
 <div class="ldmap-vue-container" >
   <div class="ldmap-vue-placeholder" ref="map" />
-  <slot></slot>
+  <slot />
 </div>
 </template>
 
 <script>
-import mapOptions from './../mixins/mapOptions'
-import manager from './../manager'
+import mapOptions from '@/mixins/mapOptions'
+import manager from '@/manager'
 
 export default {
   name: 'LongdoMap',
@@ -30,6 +30,9 @@ export default {
       let options = this.getMapOptions()
       options.placeholder = this.$refs.map
       this.map = new window.longdo.Map(options)
+      if (options.zoomRange) {
+        this.map.zoomRange(options.zoomRange)
+      }
       this.$emit('load', this.map)
     }
   },
@@ -52,7 +55,7 @@ export default {
   font-family: Tahoma,sans-serif;
 }
 .ldmap-vue-placeholder {
-  width: inherit;
-  height: inherit;
+  width: 100%;
+  height: 100%;
 }
 </style>

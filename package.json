@@ -1,7 +1,7 @@
 {
   "name": "longdo-map-vue",
   "description": "Longdo Map component for Vue.js",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "author": "Metamedia Technology <info@mm.co.th>",
   "license": "MIT",
   "homepage": "https://github.com/MetamediaTechnology/longdo-map-vue#readme",
@@ -24,10 +24,6 @@
   "scripts": {
     "build": "vue-cli-service build --target lib --name longdo-map-vue ./src/index.js"
   },
-  "dependencies": {
-    "core-js": "^2.6.11",
-    "vue": "^2.6.10"
-  },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",
     "@vue/cli-plugin-eslint": "^4.5.0",
@@ -35,7 +31,9 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^7.6.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "core-js": "^2.6.11",
+    "vue": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,

@@ -1,6 +1,6 @@
 <template>
-  <div v-if="display">
-    <slot name="button" />
+  <div class="ldmap-vue-lock-map" ref="container">
+    <slot />
   </div>
 </template>
 
@@ -16,21 +16,15 @@ export default {
       default: true
     }
   },
-  data () {
-    return {
-      display: true
-    }
-  },
   mounted () {
     this.mapReady.then(() => {
       this.$parent.map.Ui.lockMap()
-      if (this.$slots.button && this.$slots.button[0] && this.$slots.button[0].elm) {
-        let newButton = this.$slots.button[0].elm
+      if (this.$slots.default) {
+        let slotContainer = this.$refs.container
         let oldButton = document.getElementsByClassName('ldmap_lock_button')[0]
         if (oldButton) {
-          oldButton.parentNode.replaceChild(newButton, oldButton)
+          oldButton.parentNode.replaceChild(slotContainer, oldButton)
         } else {
-          this.display = false
           console.warn('Longdo Map Vue: lockMap can be called only once')
         }
       }

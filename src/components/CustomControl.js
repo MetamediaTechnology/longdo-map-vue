@@ -1,4 +1,4 @@
-import childDefault from './../mixins/childDefault'
+import childDefault from '@/mixins/childDefault'
 
 export default {
   name: 'CustomControl',

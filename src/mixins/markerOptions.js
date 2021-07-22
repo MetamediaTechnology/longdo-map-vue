@@ -39,9 +39,9 @@ const props = {
     type: Number,
     default: null
   },
-  transition: {
-    type: Boolean,
-    default: false
+  iconStyle: {
+    type: String,
+    default: null
   }
 }
 
@@ -57,8 +57,8 @@ export default {
             if (weightVal) {
               options.weight = weightVal
             }
-          } else if (key === 'transition') {
-            continue
+          } else if (key === 'iconStyle') {
+            options.style = this[key]
           } else {
             options[key] = this[key]
           }

@@ -3,37 +3,44 @@
     v-show="lockScreenReady"
     :class="['ldmap-vue-lock-screen', { 'ldmap-vue-lock-screen-unlock': !value }]"
   >
-    <template v-if="mode === 'button' && !hideButton">
-      <div class="ldmap-vue-lock-screen-button-container">
-        <slot name="button" v-if="hasButtonSlot"></slot>
-        <button
-          v-else
-          @click="lockMap(!value)"
-          class="ldmap-vue-lock-screen-button"
-        >
-          {{ value ? unlockMessageText : lockMessage }}
-        </button>
-      </div>
-    </template>
     <div
-      v-else-if="mode === 'touch'"
-      class="ldmap-vue-lock-screen-touch"
-      ref="touchArea"
-      @wheel="wheelEvent"
+      v-if="mode === 'touch'"
+      class="ldmap-vue-lock-screen-area"
+      ref="areaTouchMode"
       @touchstart="touchStartEvent"
       @touchmove="touchMoveEvent"
       @touchend="touchEndEvent"
+    >
+      <div class="ldmap-vue-lock-screen-area-message">
+        {{ unlockMessageTouch }}
+      </div>
+    </div>
+    <div
+      v-else-if="mode === 'keyboard'"
+      class="ldmap-vue-lock-screen-area"
+      ref="areaKeyboardMode"
+      @wheel="wheelEvent"
       @click="clickEvent"
     >
-      <div class="ldmap-vue-lock-screen-touch-message">
-        {{ unlockMessageText }}
+      <div class="ldmap-vue-lock-screen-area-message">
+        {{ unlockMessageKeyboard }}
       </div>
+    </div>
+    <div v-else-if="!hideButton" class="ldmap-vue-lock-screen-button-container">
+      <slot name="button">
+        <button
+          @click="lockMap(!value)"
+          class="ldmap-vue-lock-screen-button"
+        >
+          {{ value ? unlockMessage : lockMessage }}
+        </button>
+      </slot>
     </div>
   </div>
 </template>
 
 <script>
-import childDefault from './../mixins/childDefault'
+import childDefault from '@/mixins/childDefault'
 
 export default {
   name: 'LockScreen',
@@ -53,7 +60,11 @@ export default {
     },
     unlockMessage: {
       type: String,
-      default: undefined
+      default: 'Unlock'
+    },
+    unlockMessageTouch: {
+      type: String,
+      default: 'Use two fingers to move the map'
     },
     unlockMessageKeyboard: {
       type: String,
@@ -67,36 +78,18 @@ export default {
   data () {
     return {
       lockScreenReady: false,
-      touchModeReady: false,
-      unlockMessageText: '',
       wheelTimeout: undefined,
-    }
-  },
-  computed: {
-    hasButtonSlot() {
-      return this.$slots.button
     }
   },
   mounted () {
     this.mapReady.then(() => {
       this.lockScreenReady = true
-      switch (this.mode) {
-        case 'button':
-          this.setButtonMode()
-          break
-        case 'touch':
-          this.setTouchMode()
-          break
+      if (this.mode === 'keyboard') {
+        this.setKeyboardMode()
       }
     })
   },
-  // destroyed () {
-  //   this.$parent.map.Overlays.remove(this.marker)
-  // },
   methods: {
-    setButtonMode () {
-      this.unlockMessageText = this.unlockMessage === undefined ? 'Unlock' : this.unlockMessage
-    },
     keyDownEvent (e) {
       if (e.key === 'Meta' || e.key === 'Control') {
         this.lockMap(false)
@@ -108,12 +101,11 @@ export default {
       }
     },
     wheelEvent () {
-      if (this.mode !== 'touch') return
-      this.unlockMessageText = this.unlockMessageKeyboard
-      if (!this.wheelTimeout && this.$refs.touchArea) {
-        this.$refs.touchArea.classList.add('ldmap-vue-lock-screen-touch-active')
+      if (this.mode !== 'keyboard') return
+      if (!this.wheelTimeout && this.$refs.areaKeyboardMode) {
+        this.$refs.areaKeyboardMode.classList.add('ldmap-vue-lock-screen-area-active')
         this.wheelTimeout = setTimeout(() => {
-          this.$refs.touchArea.classList.remove('ldmap-vue-lock-screen-touch-active')
+          this.$refs.areaKeyboardMode.classList.remove('ldmap-vue-lock-screen-area-active')
           this.wheelTimeout = undefined
         }, 1000)
       }
@@ -123,40 +115,36 @@ export default {
       window.addEventListener('keyup', this.keyUpEvent)
     },
     clickEvent () {
-      if (this.mode !== 'touch') return
-      this.unlockMessageText = this.unlockMessageKeyboard
-      if (!this.wheelTimeout && this.$refs.touchArea) {
-        this.$refs.touchArea.classList.add('ldmap-vue-lock-screen-touch-active')
+      if (this.mode !== 'keyboard') return
+      if (!this.wheelTimeout && this.$refs.areaKeyboardMode) {
+        this.$refs.areaKeyboardMode.classList.add('ldmap-vue-lock-screen-area-active')
         this.wheelTimeout = setTimeout(() => {
-          this.$refs.touchArea.classList.remove('ldmap-vue-lock-screen-touch-active')
+          this.$refs.areaKeyboardMode.classList.remove('ldmap-vue-lock-screen-area-active')
           this.wheelTimeout = undefined
         }, 1000)
       }
     },
     touchStartEvent (e) {
-      this.unlockMessageText = this.unlockMessage === undefined ? 'Use two fingers to move the map' : this.unlockMessage
+      if (this.mode !== 'touch') return
       if (e.touches.length > 0) {
         this.lockMap(false)
-        this.$refs.touchArea.classList.add('ldmap-vue-lock-screen-touch-active')
+        this.$refs.areaTouchMode.classList.add('ldmap-vue-lock-screen-area-active')
       }
     },
     touchMoveEvent (e) {
+      if (this.mode !== 'touch') return
       if (e.touches.length > 1) {
-        this.$refs.touchArea.classList.remove('ldmap-vue-lock-screen-touch-active')
+        this.$refs.areaTouchMode.classList.remove('ldmap-vue-lock-screen-area-active')
       }
     },
     touchEndEvent () {
+      if (this.mode !== 'touch') return
       this.lockMap(true)
-      this.$refs.touchArea.classList.remove('ldmap-vue-lock-screen-touch-active')
+      this.$refs.areaTouchMode.classList.remove('ldmap-vue-lock-screen-area-active')
     },
-    setTouchMode () {
-      this.setKeyboardMode()
-      this.touchModeReady = true
-    },
-    clearTouchModeEvent () {
+    clearKeyboardModeEvent () {
       window.removeEventListener('keydown', this.keyDownEvent)
       window.removeEventListener('keyup', this.keyUpEvent)
-      this.touchModeReady = false
     },
     lockMap (lock) {
       this.$emit('input', lock)
@@ -164,14 +152,9 @@ export default {
   },
   watch: {
     mode (n) {
-      this.unlockMessageText = ''
-      if (n === 'touch' && !this.touchModeReady) {
-        this.$nextTick(() => {
-          this.setTouchMode()
-        })
-      } else if (n === 'button') {
-        this.clearTouchModeEvent()
-        this.setButtonMode()
+      this.clearKeyboardModeEvent()
+      if (n === 'keyboard') {
+        this.setKeyboardMode()
       }
     }
   }
@@ -186,6 +169,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
 }
 .ldmap-vue-lock-screen-unlock {
   pointer-events: none;
@@ -211,26 +195,27 @@ export default {
   opacity: 0.05;
   box-shadow: 2px 3px 4px rgba(0,0,0,.2);
   transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: linear;
   transition-duration: 500ms;
 }
 .ldmap-vue-lock-screen:hover .ldmap-vue-lock-screen-button {
   opacity: 1;
 }
-.ldmap-vue-lock-screen-touch {
+.ldmap-vue-lock-screen-area {
   height: 100%;
   width: 100%;
   overflow: hidden;
   opacity: 0;
   background-color: rgba(0,0,0,.5);
   transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: linear;
   transition-duration: 500ms;
 }
-.ldmap-vue-lock-screen-touch-message {
+.ldmap-vue-lock-screen-area-message {
   position: relative;
   top: 50%;
   position: relative;
+  padding: 0 0.5rem;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -240,7 +225,7 @@ export default {
   color: #fff;
   user-select: none;
 }
-.ldmap-vue-lock-screen-touch-active {
+.ldmap-vue-lock-screen-area-active {
   opacity: 1;
 }
 </style>

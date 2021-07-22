@@ -3,7 +3,8 @@ const manager = {
   src: 'https://api.longdo.com/map/',
   promise: null,
   beforeInit: null,
-	load({ apiKey = null, src = null, beforeInit = null }) {
+  debug: false,
+	load({ apiKey = null, src = null, beforeInit = null, debug = false }) {
 
 		if (typeof window === 'undefined') {
 			return
@@ -20,9 +21,20 @@ const manager = {
       this.src = src
     }
 
+    let params = {}
     if (apiKey) {
-      url += `?key=${apiKey}`
+      params['key'] = apiKey
       this.apiKey = apiKey
+    }
+
+    if (debug) {
+      params['debug'] = true
+      this.debug = true
+    }
+
+    const query = new URLSearchParams(params)
+    if (query) {
+      url += `?${query}`
     }
 
     if (beforeInit) {

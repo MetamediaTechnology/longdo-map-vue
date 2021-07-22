@@ -1,5 +1,5 @@
-import childDefault from './../mixins/childDefault'
-import geometryOptions from './../mixins/geometryOptions'
+import childDefault from '@/mixins/childDefault'
+import geometryOptions from '@/mixins/geometryOptions'
 
 export default {
   name: 'LongdoCircle',

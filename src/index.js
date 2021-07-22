@@ -12,6 +12,10 @@ import LongdoMapLockMap from './components/LockMap'
 import LongdoMapMenuBar from './components/MenuBar'
 import LongdoMapTagPanel from './components/TagPanel'
 import LongdoMapCustomControl from './components/CustomControl'
+import LongdoMapCustomUi from './components/CustomUi'
+import LongdoMapMarkerCluster from './components/MarkerCluster'
+import LongdoMapHeatmap from './components/Heatmap'
+import LongdoMapPanorama from './components/Panorama'
 
 export {
   LongdoMap,
@@ -26,7 +30,11 @@ export {
   LongdoMapLockMap,
   LongdoMapMenuBar,
   LongdoMapTagPanel,
-  LongdoMapCustomControl
+  LongdoMapCustomControl,
+  LongdoMapCustomUi,
+  LongdoMapMarkerCluster,
+  LongdoMapHeatmap,
+  LongdoMapPanorama
 }
 
 const components = {
@@ -54,6 +62,10 @@ const components = {
 			Vue.component(`${prefix}longdo-map-menu-bar`, LongdoMapMenuBar)
 			Vue.component(`${prefix}longdo-map-tag-panel`, LongdoMapTagPanel)
 			Vue.component(`${prefix}longdo-map-custom-control`, LongdoMapCustomControl)
+			Vue.component(`${prefix}longdo-map-custom-ui`, LongdoMapCustomUi)
+			Vue.component(`${prefix}longdo-map-marker-cluster`, LongdoMapMarkerCluster)
+			Vue.component(`${prefix}longdo-map-heatmap`, LongdoMapHeatmap)
+			Vue.component(`${prefix}longdo-map-panorama`, LongdoMapPanorama)
 		}
 	},
 }
