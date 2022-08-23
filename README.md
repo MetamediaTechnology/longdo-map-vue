@@ -1,5 +1,5 @@
 ![Longdo Map Logo](https://map.longdo.com/themes/longdo/logo.png)
-test
+
 # longdo-map-vue
 > [Longdo Map](https://map.longdo.com/) component for Vue.js
 
