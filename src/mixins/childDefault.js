@@ -1,10 +1,14 @@
 export default {
-  data () {
+  data() {
     return {
-      mapReady: this.$parent.mapPromise || new Promise(() => console.error('Longdo Map Vue: Longdo Map API is not ready')),
+      mapReady: new Promise((resolve) => {
+        this.$parent.$on('mapReady', () => {
+          resolve()
+        })
+      }),
     }
   },
-  render () {
+  render() {
     return ''
   }
 }
