@@ -284,6 +284,9 @@ Handler function(currentMenuItem: Object, lastMenuItem: Object): void when user 
 ## Documentation
 * [สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
 
+## Community
+* [Longdo Map API Community - แผนที่ออนไลน์ไทย](https://www.facebook.com/groups/708165893234850)
+
 ## References
 * [Longdo Map](https://map.longdo.com/products)
 * [Longdo Map API Documentation](https://map.longdo.com/docs/)
