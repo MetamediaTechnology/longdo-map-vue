@@ -1,7 +1,8 @@
 {
   "name": "longdo-map-vue",
   "description": "Longdo Map component for Vue.js",
-  "version": "2.1.0",
+  "private": true,
+  "version": "0.0.0",
   "author": "Metamedia Technology <info@mm.co.th>",
   "license": "MIT",
   "homepage": "https://github.com/MetamediaTechnology/longdo-map-vue#readme",
@@ -12,52 +13,19 @@
   "bugs": {
     "url": "https://github.com/MetamediaTechnology/longdo-map-vue/issues"
   },
-  "main": "./dist/longdo-map-vue.common.js",
-  "files": [
-    "dist/*",
-    "src/*",
-    "public/*",
-    "*.json",
-    "*.js"
-  ],
-  "private": false,
+  "type": "module",
   "scripts": {
-    "build": "vue-cli-service build --target lib --name longdo-map-vue ./src/index.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.45"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.0",
-    "@vue/cli-plugin-eslint": "^4.5.0",
-    "@vue/cli-service": "^4.5.0",
-    "babel-eslint": "^10.0.1",
-    "core-js": "^2.6.11",
-    "eslint": "^7.6.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10"
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite": "^4.0.0"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ],
   "keywords": [
     "vue",
     "longdo-map-vue",
