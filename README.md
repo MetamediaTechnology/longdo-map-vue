@@ -187,6 +187,6 @@ function addMarker(marker) {
 
 ## Vue 2
 ```cli
-npm i longdo-map-vue@v2
+npm i longdo-map-vue@v2-latest
 ```
 [สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
