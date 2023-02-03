@@ -1,150 +1,140 @@
-![Longdo Map Logo](https://map.longdo.com/themes/longdo/logo.png)
+<p align="center">
+  <a href="https://map.longdo.com/products" target="_blank" rel="noopener noreferrer">
+    <img src="https://map.longdo.com/themes/longdo/logo.png" alt="Longdo Map logo">
+  </a>
+</p>
 
-# longdo-map-vue
-> [Longdo Map](https://map.longdo.com/) component for Vue.js
+<p align="center">
+  <a href="https://map.longdo.com/" target="_blank" rel="noopener noreferrer">Longdo Map</a> component for Vue.js
+</p>
 
-![npm](https://img.shields.io/npm/v/longdo-map-vue)
-![npm](https://img.shields.io/npm/dt/longdo-map-vue)
-![npm](https://img.shields.io/npm/l/longdo-map-vue)
+<p align="center">
+  <a href="https://www.npmjs.com/package/longdo-map-vue">
+    <img src="https://img.shields.io/npm/v/longdo-map-vue?color=3894ee" alt="Version">
+  </a>
+  <a href="https://www.npmjs.com/package/longdo-map-vue">
+    <img src="https://img.shields.io/npm/dt/longdo-map-vue?color=3894ee" alt="Downloads">
+  </a>
+  <a href="https://github.com/MetamediaTechnology/longdo-map-vue/blob/master/LICENSE">
+    <img src="https://img.shields.io/npm/l/longdo-map-vue?color=3894ee" alt="License">
+  </a>
+</p>
 
-## Table of Contents
-- [Getting Started](#getting-started)
-  - [Requirement](#requirement)
-  - [Installation](#installation)
-  - [Usage](#usage)
-- [Examples](#examples)
-- [Components](#components)
-- [Documentation](#documentation)
-- [References](#references)
-
-## Getting Started
-
-### Requirement
-- [Vue](https://vuejs.org/)
-> The current version of Longdo Map Vue does not support Vue 3.
-
-### Installation
+## Installation
 You can easily install by using `npm`
 ```cli
 npm i longdo-map-vue
 ```
 
-### Usage
-First, you need to get a [Longdo Map API key](https://map.longdo.com/docs/javascript/getapi). 
-
-Then, after you have Longdo Map API key and component installed, you need to register it to your Vue project.
+## Usage
+First, you need to get a [Longdo Map API key](https://map.longdo.com/console/). Then, after you have Longdo Map API key and component installed, you need to register it to your Vue project.
 
 There are two ways of registering component:
 
-#### Register component globally
+### Register component globally
 This is a recommended way of registering component
 
 In your `main.js` or similar file:
 ```js
-import Vue from 'vue'
+import { createApp } from 'vue'
+import App from './App.vue'
 import LongdoMap from 'longdo-map-vue'
 
-Vue.use(LongdoMap, {
+createApp(App)
+  .use(LongdoMap, {
     load: {
-        apiKey: 'YOUR_LONGDO_MAP_API_KEY'
+      apiKey: 'YOUR_LONGDO_MAP_API_KEY',
     }
-})
+  })
+  .mount('#app')
+
 ```
-Then you can use `<longdo-map/>` in your component template.
+Then you can use `<longdo-map />` in your component template.
 ```html
 <template>
-    <longdo-map/>
+  <longdo-map />
 </template>
 ```
 
-#### Register locally in your component
+### Register component locally
 In your component file, for example `Foo.vue`:
 ```html
-<template>
-    <longdo-map/>
-</template>
-```
-```js
-import { LongdoMap } from 'longdo-map-vue'
-LongdoMap.init({ apiKey: 'YOUR_LONGDO_MAP_API_KEY' })
+<script setup>
+import { LongdoMapLoad, LongdoMap } from 'longdo-map-vue'
 
-export default {
-  name: 'Foo',
-  components: {
-      LongdoMap
-  }
-}
+LongdoMapLoad({
+  apiKey: 'YOUR_LONGDO_MAP_API_KEY',
+})
+</script>
+
+<template>
+  <longdo-map />
+</template>
 ```
 You can import more components if you want, for example:
 
-`import { LongdoMap, LongdoMapMarker } from 'longdo-map-vue'`
+```js
+import { LongdoMapLoad, LongdoMap, LongdoMapMarker, LongdoMapPolyline } from 'longdo-map-vue'
+```
 
 ## Examples
 Add a polygon to Longdo Map:
 
 ```html
+<script setup>
+const locationList = [
+  { lon: 99, lat: 14 },
+  { lon: 100, lat: 13 },
+  { lon: 102, lat: 13 },
+  { lon: 103, lat: 14 }
+]
+</script>
+
 <template>
-    <longdo-map>
-        <longdo-map-polygon
-            :location="locationList"
-            :lineWidth="2"
-            :lineColor="'rgba(0, 0, 0, 1)'"
-            :fillColor="'rgba(255, 0, 0, 0.4)'"
-        />
-    </longdo-map>
+  <longdo-map>
+    <longdo-map-polygon
+      :location="locationList"
+      :lineWidth="2"
+      :lineColor="'rgba(0, 0, 0, 1)'"
+      :fillColor="'rgba(255, 0, 0, 0.4)'"
+    />
+  </longdo-map>
 </template>
-```
-```js
-export default {
-    data() {
-        return {
-            locationList: [
-                { lon: 99, lat: 14 },
-                { lon: 100, lat: 13 },
-                { lon: 102, lat: 13 },
-                { lon: 103, lat: 14 }
-            ]
-        }
-    }
-}
 ```
 
 Add multiple markers to Longdo Map:
 
 ```html
 <template>
-    <longdo-map :zoom="10" :lastView="false">
-        <longdo-map-marker
-            v-for="(item, i) in markers"
-            :key="i"
-            :location="item.location"
-            :title="item.title"
-            :detail="item.detail"
-        />
-    </longdo-map>
+  <longdo-map :zoom="10" :last-view="false">
+    <longdo-map-marker
+      v-for="(item, i) in markers"
+      :key="i"
+      :location="item.location"
+      :title="item.title"
+      :detail="item.detail"
+    />
+  </longdo-map>
 </template>
 ```
 
 Using Longdo Map object:
 
 ```html
-<template>
-    <longdo-map @load="loadMap">
-        <longdo-map-marker @add="addMarker" :location="{ lon: 99, lat: 14 }" />
-    </longdo-map>
-</template>
-```
-```js
-export default {
-    methods: {
-        loadMap (map) {
-            map.Layers.setBase(longdo.Layers.NORMAL)
-        },
-        addMarker (marker) {
-            console.log(marker.location())
-        }
-    }
+<script setup>
+function loadMap(map) {
+  map.Layers.setBase(longdo.Layers.NORMAL)
 }
+function addMarker(marker) {
+  console.log(marker.location())
+}
+</script>
+
+<template>
+  <longdo-map @load="loadMap">
+    <longdo-map-marker @add="addMarker" :location="{ lon: 99, lat: 14 }" />
+  </longdo-map>
+</template>
 ```
 
 ## Components
@@ -156,21 +146,12 @@ export default {
 * [longdo-map-polyline](#geometry)
 * [longdo-map-polycurve](#geometry)
 * [longdo-map-polygon](#geometry)
-* [longdo-map-menu-bar](#menu-bar)
-* [longdo-map-tag-panel](#tag-panel)
-* [longdo-map-custom-control](#custom-control)
-* [longdo-map-lock-map](#lock-map)
-* [longdo-map-lock-screen](#lock-screen)
-* [longdo-map-custom-ui](#custom-ui)
-* [longdo-map-marker-cluster](#marker-cluster)
-* [longdo-map-heatmap](#heatmap)
-* [longdo-map-panorama](#panorama)
 
 ### Map
 - [Props](http://api.longdo.com/map/doc/ref.php#MapOptions)
 - Event: `@load="Function(object)"`
 ```html
-<longdo-map :zoom="10" :lastView="false" />
+<longdo-map :zoom="10" :last-view="false" />
 ```
 
 ### Overlay
@@ -178,115 +159,34 @@ export default {
 - Event: `@add="Function(object)"`
 ```html
 <longdo-map>
-    <longdo-map-marker :location="{ lon: 99, lat: 14 }" :title="'Home'" :detail="'My home'" />
+  <longdo-map-marker :location="{ lon: 99, lat: 14 }" :title="'Home'" :detail="'My home'" />
 </longdo-map>
 ```
 
 ### Geometry
-`longdo-map-dot`, `longdo-map-circle`, `longdo-map-rectangle`,
-
-`longdo-map-polyline`, `longdo-map-polycurve`, `longdo-map-polygon`
+`longdo-map-dot`, `longdo-map-circle`, `longdo-map-rectangle`, `longdo-map-polyline`, `longdo-map-polycurve`, `longdo-map-polygon`
 
 - [Props](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
 - Event: `@add="Function(object)"`
 ```html
 <longdo-map>
-    <longdo-map-polygon
-        :location="[{ lon: 100.123, lat: 13.579 }, ...]"
-        :lineWidth="2"
-        :lineColor="'rgba(0, 0, 0, 1)'"
-        :fillColor="'rgba(255, 0, 0, 0.4)'"
-    />
+  <longdo-map-polygon
+    :location="[{ lon: 100.123, lat: 13.579 }, ...]"
+    :lineWidth="2"
+    :lineColor="'rgba(0, 0, 0, 1)'"
+    :fillColor="'rgba(255, 0, 0, 0.4)'"
+  />
 </longdo-map>
-```
-
-### Menu Bar
-- [Props](http://api.longdo.com/map/doc/ref.php#MenuBarOptions)
-```html
-<longdo-map>
-    <longdo-map-menu-bar :button="[{ label: 'first', value: 1 }]" :dropdown="[{ label: 'Normal' }]" :dropdownLabel="'more'" :change="handlerFunction" />
-</longdo-map>
-```
-Handler function(currentMenuItem: Object, lastMenuItem: Object): void when user change menu
-
-### Tag Panel
-- [Props](http://api.longdo.com/map/doc/ref.php#TagPanelOptions)
-```html
-<longdo-map>
-    <longdo-map-tag-panel :tag="['temple', 'sizzler']" />
-</longdo-map>
-```
-
-### Custom Control
-- [Props](http://api.longdo.com/map/doc/ref.php#CustomControlOptions)
-```html
-<longdo-map>
-    <longdo-map-custom-control :html="'<button>button</button>'" />
-</longdo-map>
-```
-
-### Lock Map
-```html
-<longdo-map>
-    <longdo-map-lock-map :lock="Boolean" />
-</longdo-map>
-```
-
-### Lock Screen
-```html
-<longdo-map>
-    <longdo-map-lock-screen v-model="Boolean" />
-</longdo-map>
-```
-
-### Custom UI
-- Props: `vertical`, `horizontal` ('top', 'right', 'bottom', 'left', 'center')
-```html
-<longdo-map>
-    <longdo-map-custom-ui :vertical="'bottom'" :horizontal="'center'">
-        <div>Longdo Map</div>
-    </longdo-map-custom-ui>
-</longdo-map>
-```
-
-### Marker Cluster
-```html
-<longdo-map>
-    <longdo-map-marker-cluster :markerList="[{ location: { lat: 13.745026, lon: 100.523041 }, options: { icon: {} } }, ... ]" />
-</longdo-map>
-```
-[More](https://github.com/MetamediaTechnology/markercluster-longdo-map)
-
-### Heatmap
-```html
-<longdo-map>
-    <longdo-map-heatmap
-        :data="{ max: 10, data:[{ lat:60.087195, lon:84.767761, value:8 }, ...] }"
-        :radius="2"
-        :maxOpacity="0.5"
-        :scaleRadius="true"
-        :userLocalExtrema="true"
-    />
-</longdo-map>
-```
-[More](https://github.com/MetamediaTechnology/heatmap-longdo-map)
-
-### Panorama
-- Event: `@load="Function(object)"`
-```html
-<longdo-map-panorama
-    :map="map"
-    :showPath="true"
-/>
-<longdo-map @load="obj => map = obj" />
 ```
 
 ## Documentation
-* [สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
+* [Longdo Map API Documentation](https://map.longdo.com/docs/)
 
 ## Community
 * [Longdo Map API Community - แผนที่ออนไลน์ไทย](https://www.facebook.com/groups/708165893234850)
 
-## References
-* [Longdo Map](https://map.longdo.com/products)
-* [Longdo Map API Documentation](https://map.longdo.com/docs/)
+## Vue 2
+```cli
+npm i longdo-map-vue@v2
+```
+[สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
