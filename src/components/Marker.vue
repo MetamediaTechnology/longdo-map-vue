@@ -58,12 +58,12 @@ function getMarkerOptions() {
   for (const key in props) {
     if (props[key] !== null) {
       if (key === 'weight') {
-        let weightVal = window.longdo.OverlayWeight[this.weight]
+        let weightVal = window.longdo.OverlayWeight[props.weight]
         if (weightVal) {
           options.weight = weightVal
         }
       } else if (key === 'iconStyle') {
-        options.style = props[key]
+        options.style = props.iconStyle
       } else {
         options[key] = props[key]
       }
