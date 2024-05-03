@@ -19,6 +19,11 @@
     <img src="https://img.shields.io/npm/l/longdo-map-vue?color=3894ee" alt="License">
   </a>
 </p>
+<p align="center">
+  <a href="https://www.facebook.com/groups/708165893234850">
+    <img src="https://img.shields.io/badge/Community-3894ee?logo=facebook" alt="Facebook">
+  </a>
+</p>
 
 ## Installation
 You can easily install by using `npm`
@@ -181,12 +186,7 @@ function addMarker(marker) {
 
 ## Documentation
 * [Longdo Map API Documentation](https://map.longdo.com/docs/)
+* [สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
 
 ## Community
 * [Longdo Map API Community - แผนที่ออนไลน์ไทย](https://www.facebook.com/groups/708165893234850)
-
-## Vue 2
-```cli
-npm i longdo-map-vue@v2-latest
-```
-[สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
