@@ -1,7 +1,7 @@
 {
   "name": "longdo-map-vue",
   "description": "Longdo Map component for Vue.js",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "author": "Metamedia Technology <info@mm.co.th>",
   "license": "MIT",
   "private": false,
@@ -29,11 +29,11 @@
     "dist"
   ],
   "peerDependencies": {
-    "vue": "^3.4.26"
+    "vue": "^3.2.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
-    "vite": "^5.2.11"
+    "@vitejs/plugin-vue": "^5.1.4",
+    "vite": "^5.4.8"
   },
   "keywords": [
     "vue",
