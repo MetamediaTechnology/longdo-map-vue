@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://map.longdo.com/" target="_blank" rel="noopener noreferrer">Longdo Map</a> component for Vue.js
+  Official <a href="https://map.longdo.com/" target="_blank" rel="noopener noreferrer">Longdo Map</a> component for Vue.js
 </p>
 
 <p align="center">
@@ -25,21 +25,48 @@
   </a>
 </p>
 
+## Requirements
+
+- Vue 3.2+
+
 ## Installation
-You can easily install by using `npm`
-```cli
+
+Install the package using npm:
+
+```bash
 npm i longdo-map-vue
 ```
 
 ## Usage
-First, you need to get a [Longdo Map API key](https://map.longdo.com/console/). Then, after you have Longdo Map API key and component installed, you need to register it to your Vue project.
 
-There are two ways of registering component:
+First, get your [Longdo Map API key](https://map.longdo.com/console/). You can register the components in two ways:
 
-### Register component globally
-This is a recommended way of registering component
+### Local Registration
+Import and use the component directly in your Vue file (e.g., `App.vue`):
+```html
+<script setup>
+import { useLongdoMap, LongdoMap } from 'longdo-map-vue'
 
-In your `main.js` or similar file:
+const { status } = useLongdoMap({
+  apiKey: 'YOUR_LONGDO_MAP_API_KEY',
+})
+</script>
+
+<template>
+  <div>
+    <div v-if="status === 'pending'">Loading...</div>
+    <LongdoMap
+      v-else-if="status === 'success'"
+      :options="{ zoom: 10, lastView: false }"
+    />
+  </div>
+</template>
+```
+
+### Global Registration
+
+Register the plugin in your `main.js` or `main.ts`:
+
 ```js
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -47,46 +74,194 @@ import LongdoMap from 'longdo-map-vue'
 
 createApp(App)
   .use(LongdoMap, {
-    load: {
-      apiKey: 'YOUR_LONGDO_MAP_API_KEY',
-    }
+    apiKey: 'YOUR_LONGDO_MAP_API_KEY',
   })
   .mount('#app')
-
 ```
-Then you can use `<longdo-map />` in your component template.
+
+Now you can use the component anywhere in your app without importing:
+
 ```html
 <template>
-  <longdo-map />
+  <LongdoMap :options="{ zoom: 10 }" />
 </template>
 ```
 
-### Register component locally
-In your component file, for example `Foo.vue`:
+## Components
+
+- [LongdoMap](#longdomap)
+- [LongdoMapMarker](#longdomapmarker)
+- [LongdoMapDot](#longdomapdot)
+- [LongdoMapCircle](#longdomapcircle)
+- [LongdoMapRectangle](#longdomaprectangle)
+- [LongdoMapPolyline](#longdomappolyline)
+- [LongdoMapPolycurve](#longdomappolycurve)
+- [LongdoMapPolygon](#longdomappolygon)
+
+### LongdoMap
+
+**Props:**
+- `:options` - [MapOptions](http://api.longdo.com/map/doc/ref.php#MapOptions)
+
+**Events:**
+- `@load="Function(object)"` - Fired when map is loaded
+
+**Examples:**
+
+Basic map:
+```html
+<LongdoMap :options="{ zoom: 10, lastView: false }" />
+```
+
+Accessing map object:
 ```html
 <script setup>
-import { LongdoMapLoad, LongdoMap } from 'longdo-map-vue'
+import { LongdoMap, LongdoMapMarker } from 'longdo-map-vue'
 
-LongdoMapLoad({
+function onMapLoad(map) {
+  map.Layers.setBase(longdo.Layers.NORMAL)
+}
+</script>
+
+<template>
+  <LongdoMap @load="onMapLoad">
+    <LongdoMapMarker :location="{ lon: 99, lat: 14 }" />
+  </LongdoMap>
+</template>
+```
+
+Using custom map source (Longdo Map v2 or Longdo Box server):
+```html
+<script setup>
+import { useLongdoMap, LongdoMap } from 'longdo-map-vue'
+
+const { status } = useLongdoMap({
   apiKey: 'YOUR_LONGDO_MAP_API_KEY',
+  src: 'https://api.longdo.com/map/', // For Longdo Map v2
+  // or specify your Longdo Box server URL
 })
 </script>
 
 <template>
-  <longdo-map />
+  <div>
+    <LongdoMap />
+  </div>
 </template>
 ```
-You can import more components if you want, for example:
 
-```js
-import { LongdoMapLoad, LongdoMap, LongdoMapMarker, LongdoMapPolyline } from 'longdo-map-vue'
-```
+### LongdoMapMarker
 
-## Examples
-Add a polygon to Longdo Map:
+**Props:**
+- `:location` - Location object `{ lon: number, lat: number }`
+- `:options` - [MarkerOptions](http://api.longdo.com/map/doc/ref.php#MarkerOptions)
 
+**Events:**
+- `@add="Function(object)"` - Fired when marker is added to map
+
+**Example:**
 ```html
 <script setup>
+import { LongdoMap, LongdoMapMarker } from 'longdo-map-vue'
+
+const markers = [
+  { location: { lon: 100, lat: 13 }, title: 'Marker 1', detail: 'Detail 1' },
+  { location: { lon: 101, lat: 14 }, title: 'Marker 2', detail: 'Detail 2' },
+]
+</script>
+
+<template>
+  <LongdoMap :options="{ zoom: 10, lastView: false }">
+    <LongdoMapMarker
+      v-for="(item, i) in markers"
+      :key="i"
+      :location="item.location"
+      :options="{ title: item.title, detail: item.detail }"
+    />
+  </LongdoMap>
+</template>
+```
+
+### LongdoMapPolyline
+
+**Props:**
+- `:location` - Array of location objects
+- `:options` - [GeometryOptions](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+
+**Events:**
+- `@add="Function(object)"` - Fired when polyline is added to map
+
+**Examples:**
+
+Solid line:
+```html
+<script setup>
+import { LongdoMap, LongdoMapPolyline } from 'longdo-map-vue'
+</script>
+
+<template>
+  <LongdoMap>
+    <LongdoMapPolyline
+      :location="[
+        { lon: 100, lat: 14 },
+        { lon: 101, lat: 15 },
+        { lon: 102, lat: 14 }
+      ]"
+      :options="{
+        title: 'Polyline',
+        detail: 'A line path',
+        label: 'Polyline',
+        lineWidth: 4,
+        lineColor: 'rgba(255, 0, 0, 0.8)'
+      }"
+    />
+  </LongdoMap>
+</template>
+```
+
+Dashed line:
+```html
+<script setup>
+import { LongdoMap, LongdoMapPolyline } from 'longdo-map-vue'
+
+const longdo = () => window.longdo
+</script>
+
+<template>
+  <LongdoMap>
+    <LongdoMapPolyline
+      :location="[
+        { lon: 99, lat: 14 },
+        { lon: 100, lat: 15 },
+        { lon: 101, lat: 14 }
+      ]"
+      :options="{
+        title: 'Dashline',
+        lineWidth: 4,
+        lineColor: 'rgba(255, 0, 0, 0.8)',
+        lineStyle: longdo().LineStyle.Dashed,
+        pointer: true
+      }"
+    />
+  </LongdoMap>
+</template>
+```
+
+### LongdoMapPolygon
+
+**Props:**
+- `:location` - Array of location objects (use `null` to separate outer and inner rings for donut polygons)
+- `:options` - [GeometryOptions](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+
+**Events:**
+- `@add="Function(object)"` - Fired when polygon is added to map
+
+**Examples:**
+
+Basic polygon:
+```html
+<script setup>
+import { LongdoMap, LongdoMapPolygon } from 'longdo-map-vue'
+
 const locationList = [
   { lon: 99, lat: 14 },
   { lon: 100, lat: 13 },
@@ -96,97 +271,151 @@ const locationList = [
 </script>
 
 <template>
-  <longdo-map>
-    <longdo-map-polygon
+  <LongdoMap>
+    <LongdoMapPolygon
       :location="locationList"
-      :lineWidth="2"
-      :lineColor="'rgba(0, 0, 0, 1)'"
-      :fillColor="'rgba(255, 0, 0, 0.4)'"
+      :options="{
+        lineWidth: 2,
+        lineColor: 'rgba(0, 0, 0, 1)',
+        fillColor: 'rgba(255, 0, 0, 0.4)'
+      }"
     />
-  </longdo-map>
+  </LongdoMap>
 </template>
 ```
 
-Add multiple markers to Longdo Map:
-
-```html
-<template>
-  <longdo-map :zoom="10" :last-view="false">
-    <longdo-map-marker
-      v-for="(item, i) in markers"
-      :key="i"
-      :location="item.location"
-      :title="item.title"
-      :detail="item.detail"
-    />
-  </longdo-map>
-</template>
-```
-
-Using Longdo Map object:
-
+Donut polygon (polygon with hole):
 ```html
 <script setup>
-function loadMap(map) {
-  map.Layers.setBase(longdo.Layers.NORMAL)
-}
-function addMarker(marker) {
-  console.log(marker.location())
-}
+import { LongdoMap, LongdoMapPolygon } from 'longdo-map-vue'
 </script>
 
 <template>
-  <longdo-map @load="loadMap">
-    <longdo-map-marker @add="addMarker" :location="{ lon: 99, lat: 14 }" />
-  </longdo-map>
+  <LongdoMap>
+    <!-- Donut polygon (use null to separate outer and inner rings) -->
+    <LongdoMapPolygon
+      :location="[
+        { lon: 101, lat: 15 },
+        { lon: 105, lat: 15 },
+        { lon: 103, lat: 12 },
+        null,
+        { lon: 103, lat: 14.9 },
+        { lon: 102.1, lat: 13.5 },
+        { lon: 103.9, lat: 13.5 }
+      ]"
+      :options="{
+        label: true,
+        clickable: true
+      }"
+    />
+  </LongdoMap>
 </template>
 ```
 
-## Components
-* [longdo-map](#map)
-* [longdo-map-marker](#overlay)
-* [longdo-map-dot](#geometry)
-* [longdo-map-circle](#geometry)
-* [longdo-map-rectangle](#geometry)
-* [longdo-map-polyline](#geometry)
-* [longdo-map-polycurve](#geometry)
-* [longdo-map-polygon](#geometry)
+### LongdoMapCircle
 
-### Map
-- [Props](http://api.longdo.com/map/doc/ref.php#MapOptions)
-- Event: `@load="Function(object)"`
+**Props:**
+- `:location` - Location object `{ lon: number, lat: number }`
+- `:radius` - Radius in degrees
+- `:options` - [GeometryOptions](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+
+**Events:**
+- `@add="Function(object)"` - Fired when circle is added to map
+
+**Example:**
 ```html
-<longdo-map :zoom="10" :last-view="false" />
+<script setup>
+import { LongdoMap, LongdoMapCircle } from 'longdo-map-vue'
+</script>
+
+<template>
+  <LongdoMap>
+    <LongdoMapCircle
+      :location="{ lon: 101, lat: 15 }"
+      :radius="1"
+      :options="{
+        title: 'Circle',
+        detail: 'A circle overlay',
+        lineWidth: 2,
+        lineColor: 'rgba(255, 0, 0, 0.8)',
+        fillColor: 'rgba(255, 0, 0, 0.4)'
+      }"
+    />
+  </LongdoMap>
+</template>
 ```
 
-### Overlay
-- [Props](http://api.longdo.com/map/doc/ref.php#MarkerOptions)
-- Event: `@add="Function(object)"`
+### LongdoMapDot
+
+**Props:**
+- `:location` - Location object `{ lon: number, lat: number }`
+- `:options` - [GeometryOptions](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+
+**Events:**
+- `@add="Function(object)"` - Fired when dot is added to map
+
+**Example:**
 ```html
-<longdo-map>
-  <longdo-map-marker :location="{ lon: 99, lat: 14 }" :title="'Home'" :detail="'My home'" />
-</longdo-map>
+<script setup>
+import { LongdoMap, LongdoMapDot } from 'longdo-map-vue'
+</script>
+
+<template>
+  <LongdoMap>
+    <LongdoMapDot
+      :location="{ lon: 100.5, lat: 12.5 }"
+      :options="{
+        lineWidth: 20,
+        draggable: true
+      }"
+    />
+  </LongdoMap>
+</template>
 ```
 
-### Geometry
-`longdo-map-dot`, `longdo-map-circle`, `longdo-map-rectangle`, `longdo-map-polyline`, `longdo-map-polycurve`, `longdo-map-polygon`
+### LongdoMapRectangle
 
-- [Props](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
-- Event: `@add="Function(object)"`
+**Props:**
+- `:location` - Top-left location object `{ lon: number, lat: number }`
+- `:size` - Size object `{ width: number, height: number }` in degrees, or bottom-right location object
+- `:options` - [GeometryOptions](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+
+**Events:**
+- `@add="Function(object)"` - Fired when rectangle is added to map
+
+**Example:**
 ```html
-<longdo-map>
-  <longdo-map-polygon
-    :location="[{ lon: 100.123, lat: 13.579 }, ...]"
-    :lineWidth="2"
-    :lineColor="'rgba(0, 0, 0, 1)'"
-    :fillColor="'rgba(255, 0, 0, 0.4)'"
-  />
-</longdo-map>
+<script setup>
+import { LongdoMap, LongdoMapRectangle } from 'longdo-map-vue'
+</script>
+
+<template>
+  <LongdoMap>
+    <LongdoMapRectangle
+      :location="{ lon: 97, lat: 17 }"
+      :size="{ width: 2, height: 1 }"
+      :options="{
+        editable: true
+      }"
+    />
+  </LongdoMap>
+</template>
 ```
+
+### LongdoMapPolycurve
+
+**Props:**
+- `:location` - Array of location objects
+- `:options` - [GeometryOptions](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
+
+**Events:**
+- `@add="Function(object)"` - Fired when polycurve is added to map
 
 ## Documentation
-* [Longdo Map API Documentation](https://map.longdo.com/docs/)
-* [สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
+
+- [Longdo Map API Documentation](https://map.longdo.com/docs/)
+- [สอนการใช้ Map API ร่วมกับ Vue.js](https://map.longdo.com/blog/2019/12/03/longdo-map-api-vue-js/)
 
 ## Community
-* [Longdo Map API Community - แผนที่ออนไลน์ไทย](https://www.facebook.com/groups/708165893234850)
+
+- [Longdo Map API Community - แผนที่ออนไลน์ไทย](https://www.facebook.com/groups/708165893234850)

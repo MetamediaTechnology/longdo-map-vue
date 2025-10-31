@@ -1,14 +1,16 @@
-<script setup>
+<script setup lang="ts">
 import { onUnmounted, inject } from 'vue'
-import { useGeometryProps, useGeometryOptions } from '../composables/geometry.js'
+import type { GeometryProps } from '../types'
 
-let map = null
-let overlay = null
-const mapReady = inject('mapReady', null)
-const emit = defineEmits(['add'])
-const props = defineProps(useGeometryProps())
+let map: any = null
+let overlay: any = null
+const mapReady = inject<Promise<any> | null>('mapReady', null)
+const emit = defineEmits<{
+  add: [overlay: any]
+}>()
+const props = defineProps<GeometryProps>()
 
-function addOverlay(location, options) {
+function addOverlay(location: any, options: any): void {
   overlay = new window.longdo.Polyline(location, options)
   map?.Overlays.add(overlay)
   emit('add', overlay)
@@ -20,15 +22,15 @@ function addOverlay(location, options) {
     return
   }
   mapReady
-  .then((obj) => {
+  ?.then((obj: any) => {
     map = obj
     if (!props.location) {
       console.error('Longdo Map Vue: Invalid polyline location')
       return
     }
-    addOverlay(props.location, useGeometryOptions(props))
+    addOverlay(props.location, props.options)
   })
-  .catch((reason) => {
+  .catch((reason: any) => {
     console.error(reason)
   })
 })()

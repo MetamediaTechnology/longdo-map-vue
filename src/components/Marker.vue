@@ -1,78 +1,16 @@
-<script setup>
+<script setup lang="ts">
 import { onUnmounted, inject } from 'vue'
+import type { MarkerProps } from '../types'
 
-let map = null
-let marker = null
-const mapReady = inject('mapReady', null)
-const emit = defineEmits(['add'])
+let map: any = null
+let marker: any = null
+const mapReady = inject<Promise<any> | null>('mapReady', null)
+const emit = defineEmits<{
+  add: [marker: any]
+}>()
+const props = defineProps<MarkerProps>()
 
-const props = defineProps({
-  location: {
-    type: Object,
-    default: null
-  },
-  title: {
-    type: String,
-    default: null
-  },
-  icon: {
-    type: Object,
-    default: null
-  },
-  detail: {
-    type: String,
-    default: null
-  },
-  popup: {
-    type: Object,
-    default: null
-  },
-  visibleRange: {
-    type: Object,
-    default: null
-  },
-  clickable: {
-    type: Boolean,
-    default: null
-  },
-  draggable: {
-    type: Boolean,
-    default: null
-  },
-  weight: {
-    type: String,
-    default: null
-  },
-  rotate: {
-    type: Number,
-    default: null
-  },
-  iconStyle: {
-    type: String,
-    default: null
-  }
-})
-
-function getMarkerOptions() {
-  const options = {}
-  for (const key in props) {
-    if (props[key] !== null) {
-      if (key === 'weight') {
-        let weightVal = window.longdo.OverlayWeight[props.weight]
-        if (weightVal) {
-          options.weight = weightVal
-        }
-      } else if (key === 'iconStyle') {
-        options.style = props.iconStyle
-      } else {
-        options[key] = props[key]
-      }
-    }
-  }
-  return options
-}
-
-function addMarker(location, options) {
+function addMarker(location: any, options: any): void {
   marker = new window.longdo.Marker(location, options)
   map?.Overlays.add(marker)
   emit('add', marker)
@@ -84,15 +22,15 @@ function addMarker(location, options) {
     return
   }
   mapReady
-  .then((obj) => {
+  ?.then((obj: any) => {
     map = obj
     if (!props.location || isNaN(props.location.lat) || isNaN(props.location.lon)) {
       console.error('Longdo Map Vue: Invalid marker location')
       return
     }
-    addMarker(props.location, getMarkerOptions())
+    addMarker(props.location, props.options)
   })
-  .catch((reason) => {
+  .catch((reason: any) => {
     console.error(reason)
   })
 })()

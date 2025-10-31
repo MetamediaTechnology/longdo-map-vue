@@ -1,59 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, provide } from 'vue'
-import manager from '../manager'
-manager.loadScript()
+import type { MapProps } from '../types'
 
-const props = defineProps({
-  projection: {
-    type: String,
-    default: null
-  },
-  layer: {
-    type: Array,
-    default: null
-  },
-  zoom: {
-    type: Number,
-    default: null
-  },
-  zoomRange: {
-    type: Object,
-    default: null
-  },
-  location: {
-    type: Object,
-    default: null
-  },
-  ui: {
-    type: String,
-    default: null
-  },
-  input: {
-    type: Boolean,
-    default: null
-  },
-  autoResize: {
-    type: Boolean,
-    default: null
-  },
-  lastView: {
-    type: Boolean,
-    default: null
-  },
-  smoothZoom: {
-    type: Boolean,
-    default: null
-  },
-  language: {
-    type: String,
-    default: null
-  }
-})
+const props = defineProps<MapProps>()
 
-let map = null
+let map: any = null
 let isMapReady = false
-const placeholder = ref(null)
-const mapReady = new Promise((resolve, reject) => {
+const placeholder = ref<HTMLDivElement | null>(null)
+const mapReady = new Promise<any>((resolve, reject) => {
   (function check(times = 0) {
     if (isMapReady) {
       resolve(map)
@@ -68,56 +22,27 @@ const mapReady = new Promise((resolve, reject) => {
     times += 10
   })()
 })
-const emit = defineEmits(['load'])
+const emit = defineEmits<{
+  load: [map: any]
+}>()
 provide('mapReady', mapReady)
 
-function initLongdoMap() {
+function initLongdoMap(): void {
   if (typeof window.longdo !== 'object') {
     console.error('Longdo Map Vue: Longdo Map API is not found')
     return
   }
-  let options = getMapOptions()
+  const options: any = props.options
   options.placeholder = placeholder.value
   map = new window.longdo.Map(options)
-  if (options.zoomRange) {
-    map.zoomRange(options.zoomRange)
-  }
   map.Event.bind('ready', () => {
     isMapReady = true
     emit('load', map)
   })
 }
 
-function getMapOptions () {
-  const options = {}
-  for (const key in props) {
-    if (props[key] !== null) {
-      if (key === 'projection') {
-        options.projection = window.longdo.Projections[props.projection]
-      } else if (key === 'layer') {
-        options.layer = getLayers(props.layer)
-      } else if (key === 'ui') {
-        options.ui = window.longdo.UiComponent[props.ui]
-      } else {
-        options[key] = props[key]
-      }
-    }
-  }
-  return options
-}
-
-function getLayers (layers) {
-  let result = []
-  for (let layer of layers) {
-    result.push(window.longdo.Layers[layer])
-  }
-  return result
-}
-
 onMounted(() => {
-  manager.scriptReady.then(() => {
-    initLongdoMap()
-  })
+  initLongdoMap()
 })
 </script>
 
