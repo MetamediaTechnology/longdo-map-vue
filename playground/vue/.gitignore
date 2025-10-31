@@ -28,8 +28,3 @@ coverage
 *.sw?
 
 *.tsbuildinfo
-
-package-lock.json
-
-# Local markdown file
-*.local.md

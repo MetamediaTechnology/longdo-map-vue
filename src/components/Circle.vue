@@ -1,14 +1,16 @@
-<script setup>
+<script setup lang="ts">
 import { onUnmounted, inject } from 'vue'
-import { useGeometryProps, useGeometryOptions } from '../composables/geometry.js'
+import type { CircleProps } from '../types'
 
-let map = null
-let overlay = null
-const mapReady = inject('mapReady', null)
-const emit = defineEmits(['add'])
-const props = defineProps(useGeometryProps())
+let map: any = null
+let overlay: any = null
+const mapReady = inject<Promise<any> | null>('mapReady', null)
+const props = defineProps<CircleProps>()
+const emit = defineEmits<{
+  add: [overlay: any]
+}>()
 
-function addOverlay(location, radius, options) {
+function addOverlay(location: any, radius: any, options: any): void {
   overlay = new window.longdo.Circle(location, radius, options)
   map?.Overlays.add(overlay)
   emit('add', overlay)
@@ -20,7 +22,7 @@ function addOverlay(location, radius, options) {
     return
   }
   mapReady
-  .then((obj) => {
+  ?.then((obj: any) => {
     map = obj
     if (!props.location) {
       console.error('Longdo Map Vue: Invalid circle location')
@@ -30,14 +32,14 @@ function addOverlay(location, radius, options) {
       console.error('Longdo Map Vue: Invalid circle radius')
       return
     }
-    addOverlay(props.location, props.radius, useGeometryOptions(props))
+    addOverlay(props.location, props.radius, props.options)
   })
-  .catch((reason) => {
+  .catch((reason: any) => {
     console.error(reason)
   })
 })()
 
 onUnmounted(() => {
-  map.Overlays.remove(overlay)
+  map?.Overlays.remove(overlay)
 })
 </script>

@@ -1,15 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import { onUnmounted, inject } from 'vue'
-import { useGeometryProps, useGeometryOptions } from '../composables/geometry.js'
+import type { RectangleProps } from '../types'
 
-let map = null
-let overlay = null
-const mapReady = inject('mapReady', null)
-const emit = defineEmits(['add'])
-const props = defineProps(useGeometryProps())
+let map: any = null
+let overlay: any = null
+const mapReady = inject<Promise<any> | null>('mapReady', null)
+const emit = defineEmits<{
+  add: [overlay: any]
+}>()
+const props = defineProps<RectangleProps>()
 
-function addOverlay(location, options) {
-  overlay = new window.longdo.Rectangle(location, options)
+function addOverlay(location: any, size: any, options: any): void {
+  overlay = new window.longdo.Rectangle(location, size, options)
   map?.Overlays.add(overlay)
   emit('add', overlay)
 }
@@ -20,7 +22,7 @@ function addOverlay(location, options) {
     return
   }
   mapReady
-  .then((obj) => {
+  ?.then((obj: any) => {
     map = obj
     if (!props.location) {
       console.error('Longdo Map Vue: Invalid rectangle location')
@@ -30,14 +32,14 @@ function addOverlay(location, options) {
       console.error('Longdo Map Vue: Invalid rectangle size')
       return
     }
-    addOverlay(props.location, props.size, useGeometryOptions(props))
+    addOverlay(props.location, props.size, props.options)
   })
-  .catch((reason) => {
+  .catch((reason: any) => {
     console.error(reason)
   })
 })()
 
 onUnmounted(() => {
-  map.Overlays.remove(overlay)
+  map?.Overlays.remove(overlay)
 })
 </script>

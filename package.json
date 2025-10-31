@@ -1,11 +1,14 @@
 {
   "name": "longdo-map-vue",
-  "description": "Longdo Map component for Vue.js",
-  "version": "3.1.1",
+  "description": "Official Longdo Map component for Vue.js",
+  "version": "3.2.0",
   "author": "Metamedia Technology <info@mm.co.th>",
   "license": "MIT",
   "private": false,
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "homepage": "https://github.com/MetamediaTechnology/longdo-map-vue#readme",
   "repository": {
     "type": "git",
@@ -15,12 +18,14 @@
     "url": "https://github.com/MetamediaTechnology/longdo-map-vue/issues"
   },
   "scripts": {
-    "build": "vite build"
+    "build": "vite build && vue-tsc -d --emitDeclarationOnly"
   },
   "main": "./dist/longdo-map-vue.umd.js",
   "module": "./dist/longdo-map-vue.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/longdo-map-vue.es.js",
       "require": "./dist/longdo-map-vue.umd.js"
     }
@@ -32,8 +37,11 @@
     "vue": "^3.2.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.4",
-    "vite": "^5.4.8"
+    "@types/node": "^24.9.2",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12",
+    "vue-tsc": "^3.1.2"
   },
   "keywords": [
     "vue",
@@ -41,6 +49,7 @@
     "longdomapvue",
     "vue-longdomap",
     "vuelongdomap",
+    "vue-longdo-map",
     "longdo",
     "longdomap",
     "longdo-map",
