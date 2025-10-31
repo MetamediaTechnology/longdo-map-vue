@@ -144,7 +144,7 @@ const { status } = useLongdoMap({
 
 <template>
   <div>
-    <LongdoMap />
+    <LongdoMap v-if="status === 'success'" />
   </div>
 </template>
 ```
