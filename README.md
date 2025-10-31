@@ -95,7 +95,6 @@ Now you can use the component anywhere in your app without importing:
 - [LongdoMapCircle](#longdomapcircle)
 - [LongdoMapRectangle](#longdomaprectangle)
 - [LongdoMapPolyline](#longdomappolyline)
-- [LongdoMapPolycurve](#longdomappolycurve)
 - [LongdoMapPolygon](#longdomappolygon)
 
 ### LongdoMap
@@ -401,15 +400,6 @@ import { LongdoMap, LongdoMapRectangle } from 'longdo-map-vue'
   </LongdoMap>
 </template>
 ```
-
-### LongdoMapPolycurve
-
-**Props:**
-- `:location` - Array of location objects
-- `:options` - [GeometryOptions](http://api.longdo.com/map/doc/ref.php#GeometryOptions)
-
-**Events:**
-- `@add="Function(object)"` - Fired when polycurve is added to map
 
 ## Documentation
 
