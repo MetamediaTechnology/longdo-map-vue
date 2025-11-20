@@ -23,6 +23,9 @@ export default {
   },
 }
 
+export * from './types/map'
+export * from './types/event'
+
 export {
   useLongdoMap,
   LongdoMap,
