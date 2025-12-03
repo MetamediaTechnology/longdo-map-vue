@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: true
+
+      - name: Type Check
+        run: pnpm exec tsc --noEmit
+
+      - name: Build
+        run: pnpm run build
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          always-auth: true
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: true
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --access public --no-git-checks --filter ./
