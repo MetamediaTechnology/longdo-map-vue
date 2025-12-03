@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, provide } from 'vue'
 import type { MapProps } from '../types'
+import { Map } from 'longdomap-type';
 
 const props = defineProps<MapProps>()
 
-let map: any = null
+let map: Map | any = null
 let isMapReady = false
 const placeholder = ref<HTMLDivElement | null>(null)
 const mapReady = new Promise<any>((resolve, reject) => {

@@ -23,7 +23,7 @@ export default {
   },
 }
 
-export {
+export { 
   useLongdoMap,
   LongdoMap,
   LongdoMapMarker,
@@ -34,3 +34,10 @@ export {
   LongdoMapDot,
   LongdoMapRectangle,
 }
+
+// longdomap type definitions
+export type {
+  Map,
+  EventName,
+  LongdoLayers
+} from 'longdomap-type'
