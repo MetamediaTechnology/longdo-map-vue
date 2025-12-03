@@ -2,53 +2,47 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
           run_install: true
-
-      - name: Type Check
-        run: pnpm exec tsc --noEmit
-
-      - name: Build
-        run: pnpm run build
+      - run: pnpm exec tsc --noEmit
+      - run: pnpm run build
 
   publish:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-
+    if: startsWith(github.ref, 'refs/tags/v')
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
           always-auth: true
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v3
+      - name: Ensure npm CLI supports OIDC
+        run: npm install -g npm@^11.5.1
+
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
           run_install: true
 
+      - name: Publish to npm (OIDC)
+        run: pnpm publish --access public --no-git-checks
