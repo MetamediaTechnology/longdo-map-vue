@@ -7,14 +7,15 @@ import {
   LongdoMapPolygon,
   LongdoMapCircle,
   LongdoMapDot,
-  LongdoMapRectangle
+  LongdoMapRectangle,
+  type Map
 } from 'longdo-map-vue'
 
 const runtimeConfig = useRuntimeConfig()
 const status = ref('pending')
 
 const longdo = () => window.longdo
-function onMapLoad(map: any) {
+function onMapLoad(map: Map) {
   console.log('Longdo Map loaded')
   console.log(map)
 }
