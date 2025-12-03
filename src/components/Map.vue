@@ -24,7 +24,7 @@ const mapReady = new Promise<any>((resolve, reject) => {
   })()
 })
 const emit = defineEmits<{
-  load: [map: any]
+  load: [map: Map]
 }>()
 provide('mapReady', mapReady)
 
